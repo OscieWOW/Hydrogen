@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Hydrogen">
+      <UniqueIdentifier>{854A0F42-7117-6A4D-9A30-58F5865C9FDB}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Hydrogen.h" />
+    <ClInclude Include="src\Hydrogen\Application.h">
+      <Filter>Hydrogen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Hydrogen\core.h">
+      <Filter>Hydrogen</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Hydrogen\Application.cpp">
+      <Filter>Hydrogen</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
