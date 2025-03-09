@@ -2,9 +2,12 @@
 
 namespace Hydrogen {
 	Application::Application(const appSpecs specs):specs(specs) {
-		
 	}
 	Application::~Application() {
+		
+	}
+
+	void Application::run() {
 		
 	}
 }
