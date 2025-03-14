@@ -9,7 +9,12 @@ int main() {
 	Logger::ConsoleSink* consoleSink = new Logger::ConsoleSink();
 	Logger::OutputStream hydrogenLogger = Logger::OutputStream("APP",consoleSink);
 	hydrogenLogger.setLogFormat("[%N %T] %M");
-	hydrogenLogger.logTrace("this is the hydrogen logger");
+
+
+	hydrogenLogger.logFatal("Fatal example");
+	hydrogenLogger.logWarning("Warning example");
+	hydrogenLogger.logMessage("Message example");
+	hydrogenLogger.logTrace("Trace example");
 
 	Hydrogen::Application* app = Hydrogen::createApp();
 	app->run();

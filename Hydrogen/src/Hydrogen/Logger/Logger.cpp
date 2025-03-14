@@ -14,7 +14,6 @@ namespace Logger {
 			if(format[i] == '%') {
 				std::unique_ptr<Logger::formatToken> token = std::make_unique<Logger::formatToken>(Logger::formatTokenType::TEXT);
 				token->text = text.str();
-				std::cout << "adding " << text.str() << " token" << std::endl;
 				formatTokens.push_back(std::move(*token));
 				text.str(std::string());
 
@@ -23,28 +22,24 @@ namespace Logger {
 					//Name
 					case 'N': {
 						formatTokens.push_back(Logger::formatToken(Logger::formatTokenType::NAME));
-						std::cout << "adding a name token" << std::endl;
 						break;
 					}
 					//Time
 					case 'T':
 					{
 						formatTokens.push_back(Logger::formatToken(Logger::formatTokenType::TIME));
-						std::cout << "adding a time token" << std::endl;
 						break;
 					}
 					//Date
 					case 'D':
 					{
 						formatTokens.push_back(Logger::formatToken(Logger::formatTokenType::DATE));
-						std::cout << "adding a date token" << std::endl;
 						break;
 					}
 					//Message
 					case 'M':
 					{
 						formatTokens.push_back(Logger::formatToken(Logger::formatTokenType::MESSAGE));
-						std::cout << "adding a message token" << std::endl;
 						break;
 					}
 				}
@@ -54,24 +49,63 @@ namespace Logger {
 		}
 	}
 
+	std::string OutputStream::formatMessage(std::string message) {
+		std::stringstream outputText;
+		for(auto token:formatTokens) {
+			switch(token.formatType) {
+				case Logger::formatTokenType::TEXT:
+				{
+					outputText << token.text;
+					break;
+				}
+				case Logger::formatTokenType::NAME:
+				{
+					outputText << outputName;
+					break;
+				}
+				case Logger::formatTokenType::TIME:
+				{
+					auto now = std::chrono::system_clock::now();
+					std::time_t nowC = std::chrono::system_clock::to_time_t(now);
+					std::tm localTime;
+					localtime_s(&localTime, &nowC);
+
+					outputText << std::put_time(&localTime, "%H:%M:%S");
+					break;
+				}
+				case Logger::formatTokenType::DATE:
+				{
+					auto now = std::chrono::system_clock::now();
+					std::time_t nowC = std::chrono::system_clock::to_time_t(now);
+					std::tm localTime;
+					localtime_s(&localTime, &nowC);
+
+					outputText << std::put_time(&localTime, "%d-%m-%Y");
+					break;
+				}
+				case Logger::formatTokenType::MESSAGE:
+				{
+					outputText << message;
+					break;
+				}
+			}
+		}
+		return outputText.str();
+	}
+
 	void OutputStream::logTrace(std::string message) {
-		//std::cout << message << std::endl;
-		std::stringstream output;
-
-		auto now = std::chrono::system_clock::now();
-		std::time_t nowC = std::chrono::system_clock::to_time_t(now);
-		std::tm localTime = *std::localtime(&nowC);
-
-		output << "[" << outputName << " " << std::put_time(&localTime,"%H:%M:%S") << "] " << message;
-		outputSink->output(output.str(), Logger::Severity::TRACE);
+		outputSink->output(formatMessage(message),Logger::Severity::TRACE);
 	}
 	void OutputStream::logMessage(std::string message) {
+		outputSink->output(formatMessage(message), Logger::Severity::MESSAGE);
 
 	}
 	void OutputStream::logWarning(std::string message) {
+		outputSink->output(formatMessage(message),Logger::Severity::WARNING);
 
 	}
 	void OutputStream::logFatal(std::string message) {
+		outputSink->output(formatMessage(message), Logger::Severity::FATAL);
 
 	}
 }

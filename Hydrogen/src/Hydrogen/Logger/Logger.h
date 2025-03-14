@@ -12,6 +12,7 @@ namespace Logger {
 			~OutputStream();
 
 			void setLogFormat(std::string format);
+			std::string formatMessage(std::string message);
 
 			void logTrace(std::string message);
 			void logMessage(std::string message);
