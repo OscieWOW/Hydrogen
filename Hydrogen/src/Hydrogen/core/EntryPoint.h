@@ -8,6 +8,7 @@ extern Hydrogen::Application* Hydrogen::createApp();
 int main() {
 	Logger::ConsoleSink* consoleSink = new Logger::ConsoleSink();
 	Logger::OutputStream hydrogenLogger = Logger::OutputStream("APP",consoleSink);
+	hydrogenLogger.setLogFormat("[%N %T] %M");
 	hydrogenLogger.logTrace("this is the hydrogen logger");
 
 	Hydrogen::Application* app = Hydrogen::createApp();
