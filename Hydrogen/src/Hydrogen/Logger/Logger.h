@@ -4,6 +4,7 @@
 #include "LoggerEnums.h"
 #include "Sink.h"
 #include "ConsoleSink.h"
+#include  "FileSink.h"
 
 namespace Logger {
 	class H_API OutputStream {

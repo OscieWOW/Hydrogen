@@ -4,6 +4,7 @@
 #include <iostream>
 #include <chrono>
 #include <sstream>
+#include <fstream>
 
 #ifdef PLATFORM_WINDOWS
 	#ifdef BUILD_DLL
