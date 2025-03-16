@@ -8,7 +8,41 @@
 # What is planned for the future? #
 
 ## Logger ##
-A logging system is being worked on
+The logging system is first initialised in the entry point function.
+```cpp
+void Log::logInit() {
+	clientLogger.setLogFormat("[%N %T] %M");
+	hydrogenLogger.setLogFormat("[%N %T] %M");
+}
+```
+This sets the format of the log messages to first contain the name of the logger, then the time and finaly the message.
+The loggers also have macros defined in the `Log` class as:
+```cpp
+#define H_CORE_TRACE(msg)  Hydrogen::Log::hydrogenLogger.logTrace(msg)
+#define H_CORE_MESSAGE(msg)  Hydrogen::Log::hydrogenLogger.logMessage(msg)
+#define H_CORE_WARN(msg)  Hydrogen::Log::hydrogenLogger.logWarning(msg)
+#define H_CORE_FATAL(msg)  Hydrogen::Log::hydrogenLogger.logFatal(msg)
+
+#define H_TRACE(msg)  Hydrogen::Log::clientLogger.logTrace(msg)
+#define H_MESSAGE(msg)  Hydrogen::Log::clientLogger.logMessage(msg)
+#define H_WARN(msg)  Hydrogen::Log::clientLogger.logWarning(msg)
+#define H_FATAL(msg)  Hydrogen::Log::clientLogger.logFatal(msg)
+```
+Meaning that if the functions are called as follows:
+```cpp
+H_TRACE("client example trace");
+H_MESSAGE("client example message");
+H_WARN("client example warning");
+H_FATAL("client example fatal");
+```
+
+>$\text{\color{White}[CLIENT 13:01:12] client example trace}$
+>
+>$\text{\color{Green}[CLIENT 13:01:12] client example message}$
+>
+>$\text{\color{Yellow}[CLIENT 13:01:12] client example warning}$
+>
+>$\text{\color{Red}[CLIENT 13:01:12] client example fatal}$
 
 ## Layers and Events ##
 Hydrogen will include an `Event` and `Layer` system. 
