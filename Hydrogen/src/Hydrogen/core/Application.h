@@ -2,6 +2,7 @@
 
 #include "Core.h"
 
+
 namespace Hydrogen {
 
 	struct H_API appSpecs {
@@ -17,7 +18,7 @@ namespace Hydrogen {
 			Application(const appSpecs specs);
 			~Application();
 
-			void run();
+			virtual void run() = 0;
 
 		public:
 			appSpecs specs;

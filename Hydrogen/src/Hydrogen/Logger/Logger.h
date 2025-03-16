@@ -9,7 +9,7 @@
 namespace Logger {
 	class H_API OutputStream {
 		public:
-			OutputStream(std::string name,OutputSink* outputSink);
+			OutputStream(std::string name,Hydrogen::Ref<OutputSink> outputSink);
 			~OutputStream();
 
 			void setLogFormat(std::string format);
@@ -23,7 +23,7 @@ namespace Logger {
 		private:
 			std::vector<Logger::formatToken> formatTokens;
 			std::string outputName;
-			OutputSink* outputSink;
+			Hydrogen::Ref<Logger::OutputSink> outputSink;
 
 	};
 }

@@ -1,7 +1,7 @@
 #include "Logger.h"
 
 namespace Logger {
-	Logger::OutputStream::OutputStream(std::string name,OutputSink* outputSink):outputSink(outputSink),outputName(name) {
+	Logger::OutputStream::OutputStream(std::string name, Hydrogen::Ref<OutputSink> outputSink):outputSink(outputSink),outputName(name) {
 
 	}
 	Logger::OutputStream::~OutputStream() {

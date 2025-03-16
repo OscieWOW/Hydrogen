@@ -11,6 +11,7 @@ namespace Logger {
 		public:	
 			FileSink(std::string filePath) {
 				outputFile = std::ofstream(filePath);
+				outputFile << "";
 				outputFile.clear();
 			}
 			~FileSink() {
