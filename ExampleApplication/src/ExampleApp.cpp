@@ -6,7 +6,10 @@ class ExampleApp:public Hydrogen::Application {
 			
 		}
 		void run() override {
-			H_MESSAGE("hello from client");
+			H_TRACE("client example trace");
+			H_MESSAGE("client example message");
+			H_WARN("client example warning");
+			H_FATAL("client example fatal");
 		}
 };
 
