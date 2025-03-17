@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../Core/Core.h"
 #include "LoggerEnums.h"
 #include "Sink.h"
 #include "ConsoleSink.h"

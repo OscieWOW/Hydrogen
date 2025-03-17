@@ -15,6 +15,7 @@
 	#endif
 #endif
 
+
 namespace Hydrogen {
 	template <typename t>
 	using Ref = std::shared_ptr<t>;

@@ -8,11 +8,6 @@ class ExampleApp:public Hydrogen::Application {
 			
 		}
 		void run() override {
-			H_TRACE("client example trace");
-			H_MESSAGE("client example message");
-			H_WARN("client example warning");
-			H_FATAL("client example fatal");
-
 			Hydrogen::Scope<Hydrogen::GameEvent> e = Hydrogen::createScope<Hydrogen::GameEvent>(Hydrogen::EventType::GameEvent,1.0f);
 			Hydrogen::EventDispatcher dispatcher = Hydrogen::EventDispatcher(*e);
 			dispatcher.dispatch<Hydrogen::GameEvent>(function);
@@ -28,6 +23,6 @@ Hydrogen::Application* Hydrogen::createApp() {
 }
 
 bool function(Hydrogen::GameEvent& e) {
-	H_TRACE(e.traceEvent());
+	H_MESSAGE("This game event reports that it has been "+e.traceEvent());
 	return true;
 }
