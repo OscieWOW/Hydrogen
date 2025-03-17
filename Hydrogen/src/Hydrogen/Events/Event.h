@@ -35,7 +35,6 @@ namespace Hydrogen {
 			EventDispatcher(Event& e):m_event(e) {}
 
 			template<typename t> void dispatch(EventFn<t> fn) {
-				H_CORE_TRACE(m_event.traceEvent());
 				if(t::staticGetType() == m_event.eventType) {
 					m_event.handeled = fn(*(t*)&m_event);
 				}
