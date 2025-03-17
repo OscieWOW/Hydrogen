@@ -5,6 +5,7 @@
 #include <chrono>
 #include <sstream>
 #include <fstream>
+#include <functional>
 
 #ifdef PLATFORM_WINDOWS
 	#ifdef BUILD_DLL
@@ -18,14 +19,14 @@ namespace Hydrogen {
 	template <typename t>
 	using Ref = std::shared_ptr<t>;
 	template<typename T, typename ... Args>
-	constexpr Ref<T> CreateRef(Args&& ... args) {
+	constexpr Ref<T> createRef(Args&& ... args) {
 		return std::make_shared<T>(std::forward<Args>(args)...);
 	}
 
 	template<typename T>
 	using Scope = std::unique_ptr<T>;
 	template<typename T, typename ... Args>
-	constexpr Scope<T> CreateScope(Args&& ... args) {
+	constexpr Scope<T> createScope(Args&& ... args) {
 		return std::make_unique<T>(std::forward<Args>(args)...);
 	}
 }

@@ -1,10 +1,11 @@
 #pragma once
 
 #include "Core.h"
+#include "../Events/Event.h"
+#include "../Events/GameEvent.h"
 
 
 namespace Hydrogen {
-
 	struct H_API appSpecs {
 		const std::string* appName;
 
