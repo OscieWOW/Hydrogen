@@ -1,6 +1,6 @@
 #include <Hydrogen.h>
 
-bool function(Hydrogen::GameEvent& e);
+bool uponGameUpdate(Hydrogen::GameUpdate& e);
 
 class ExampleApp:public Hydrogen::Application {
 	public:
@@ -8,9 +8,10 @@ class ExampleApp:public Hydrogen::Application {
 			
 		}
 		void run() override {
-			Hydrogen::Scope<Hydrogen::GameEvent> e = Hydrogen::createScope<Hydrogen::GameEvent>(Hydrogen::EventType::GameEvent,1.0f);
-			Hydrogen::EventDispatcher dispatcher = Hydrogen::EventDispatcher(*e);
-			dispatcher.dispatch<Hydrogen::GameEvent>(function);
+			Hydrogen::Scope<Hydrogen::GameEvent> e = Hydrogen::createScope<Hydrogen::GameEvent>(Hydrogen::EventType::GameEvent, []() {
+				H_MESSAGE("Game event");
+			});
+			onEvent(*e);
 		}
 };
 
@@ -22,7 +23,7 @@ Hydrogen::Application* Hydrogen::createApp() {
 	return app;
 }
 
-bool function(Hydrogen::GameEvent& e) {
+bool uponGameUpdate(Hydrogen::GameUpdate& e) {
 	H_MESSAGE("This game event reports that it has been "+e.traceEvent());
 	return true;
 }

@@ -19,7 +19,12 @@ namespace Hydrogen {
 			Application(const appSpecs specs);
 			~Application();
 
+			bool onGameUpdate(GameUpdate& e);
+			bool onGameEvent(GameEvent& e);
+
 			virtual void run() = 0;
+			void onEvent(Event& e);
+
 
 		public:
 			appSpecs specs;
