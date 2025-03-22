@@ -3,6 +3,7 @@
 #include "Core.h"
 #include "../Events/Event.h"
 #include "../Events/GameEvent.h"
+#include "../Events/WindowEvent.h"
 
 
 namespace Hydrogen {
@@ -18,6 +19,9 @@ namespace Hydrogen {
 		public:
 			Application(const appSpecs specs);
 			~Application();
+
+			bool onWindowResize(WindowResize& e);
+			bool onWindowClose(WindowClose& e);
 
 			bool onGameUpdate(GameUpdate& e);
 			bool onGameEvent(GameEvent& e);

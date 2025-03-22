@@ -8,9 +8,7 @@ namespace Hydrogen {
 			float deltaTime;
 
 		public:
-			GameUpdate(EventType type, float deltaTime):Event(type),deltaTime(deltaTime) {
-				H_CORE_TRACE("New game event");
-			}
+			GameUpdate(float deltaTime):Event(EventType::GameUpdate),deltaTime(deltaTime) {			}
 
 			std::string traceEvent() override {return std::to_string(deltaTime);}
 			static EventType staticGetType() {return EventType::GameUpdate;}
@@ -21,7 +19,7 @@ namespace Hydrogen {
 			std::function<void()> func;
 
 		public:
-			GameEvent(EventType type,std::function<void()> eventFunc):Event(type),func(eventFunc) {}
+			GameEvent(std::function<void()> eventFunc):Event(EventType::GameEvent),func(eventFunc) {}
 
 			std::string traceEvent() override {return "GameEvents does not have a string returnable argument";}
 			static EventType staticGetType() {return EventType::GameEvent;}

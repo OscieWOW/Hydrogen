@@ -15,6 +15,7 @@
 	#endif
 #endif
 
+#define BIND_EVENT_FUNCTION(func) [this](auto&&... args) -> decltype(auto) { return this->func(std::forward<decltype(args)>(args)...); }
 
 namespace Hydrogen {
 	template <typename t>
