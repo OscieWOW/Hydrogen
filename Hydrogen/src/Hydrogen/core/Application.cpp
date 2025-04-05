@@ -7,21 +7,32 @@ namespace Hydrogen {
 		
 	}
 
+	bool Application::onWindowClose(WindowClose& e) {
+		return true;
+	}
 	bool Application::onWindowResize(WindowResize& e) {
 		H_CORE_MESSAGE(e.traceEvent());
 		return true;
 	}
-	bool Application::onWindowClose(WindowClose& e) {
+	bool Application::onWindowFocus(WindowFocus& e) {
+		return true;
+	}
+	bool Application::onWindowLostFocus(WindowLostFocus& e) {
+		return true;
+	}
+	bool Application::onWindowMoved(WindowMoved& e) {
+		H_CORE_MESSAGE(e.traceEvent());
 		return true;
 	}
 
-	bool Application::onGameUpdate(GameUpdate& e) {
+	bool Application::onAppUpdate(AppUpdate& e) {
+		H_CORE_MESSAGE(e.traceEvent());
 		return true;
 	}
-	bool Application::onGameEvent(GameEvent& e) {
-		e.func();
+	bool Application::onAppRender(AppRender& e) {
 		return true;
 	}
+
 
 	void Application::onEvent(Event& e) {
 		Hydrogen::Scope<EventDispatcher> dispatcher = Hydrogen::createScope<EventDispatcher>(e);
@@ -29,15 +40,15 @@ namespace Hydrogen {
 		//Window Events
 		dispatcher->dispatch<WindowClose>(BIND_EVENT_FUNCTION(onWindowClose));
 		dispatcher->dispatch<WindowResize>(BIND_EVENT_FUNCTION(onWindowResize));
+		dispatcher->dispatch<WindowFocus>(BIND_EVENT_FUNCTION(onWindowFocus));
+		dispatcher->dispatch<WindowFocus>(BIND_EVENT_FUNCTION(onWindowFocus));
+		dispatcher->dispatch<WindowLostFocus>(BIND_EVENT_FUNCTION(onWindowLostFocus));
+		dispatcher->dispatch<WindowMoved>(BIND_EVENT_FUNCTION(onWindowMoved));
 
 		//App Events
+		dispatcher->dispatch<AppUpdate>(BIND_EVENT_FUNCTION(onAppUpdate));
+		dispatcher->dispatch<AppRender>(BIND_EVENT_FUNCTION(onAppRender));
 
-		//Key Events
-
-		//Mouse Events
-
-		//GameEvents
-		dispatcher->dispatch<GameUpdate>(BIND_EVENT_FUNCTION(onGameUpdate));
-		dispatcher->dispatch<GameEvent>(BIND_EVENT_FUNCTION(onGameEvent));
+		m_layerStack.onEvent(e);
 	}
 }

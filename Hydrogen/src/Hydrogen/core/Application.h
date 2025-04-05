@@ -1,9 +1,12 @@
 #pragma once
 
 #include "Core.h"
+
 #include "../Events/Event.h"
 #include "../Events/GameEvent.h"
 #include "../Events/WindowEvent.h"
+#include "../Events/AppEvent.h"
+#include "LayerStack.h"
 
 
 namespace Hydrogen {
@@ -20,11 +23,14 @@ namespace Hydrogen {
 			Application(const appSpecs specs);
 			~Application();
 
-			bool onWindowResize(WindowResize& e);
 			bool onWindowClose(WindowClose& e);
+			bool onWindowResize(WindowResize& e);
+			bool onWindowFocus(WindowFocus& e);
+			bool onWindowLostFocus(WindowLostFocus& e);
+			bool onWindowMoved(WindowMoved& e);
 
-			bool onGameUpdate(GameUpdate& e);
-			bool onGameEvent(GameEvent& e);
+			bool onAppUpdate(AppUpdate& e);
+			bool onAppRender(AppRender& e);
 
 			virtual void run() = 0;
 			void onEvent(Event& e);
@@ -33,7 +39,8 @@ namespace Hydrogen {
 		public:
 			appSpecs specs;
 
-		private:
+		protected:
+			LayerStack m_layerStack;
 	};
 	Application* createApp();
 }

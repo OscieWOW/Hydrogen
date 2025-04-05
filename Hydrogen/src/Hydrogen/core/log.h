@@ -7,6 +7,7 @@ namespace Hydrogen {
 	class H_API Log {
 		public:
 			static void logInit();
+			static Logger::OutputStream newLogger(const std::string& name);
 
 		public:
 			static Hydrogen::Ref<Logger::ConsoleSink> consoleSink;

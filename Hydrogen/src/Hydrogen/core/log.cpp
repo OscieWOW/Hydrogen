@@ -8,7 +8,11 @@
 namespace Hydrogen {
 	void Log::logInit() {
 		clientLogger.setLogFormat("[%N %T] %M");
-
 		hydrogenLogger.setLogFormat("[%N %T] %M");
+	}
+	Logger::OutputStream Log::newLogger(const std::string& name) {
+		Logger::OutputStream tempLogger = Logger::OutputStream(name,consoleSink);
+		tempLogger.setLogFormat("[%N %T] %M");
+		return std::move(tempLogger);
 	}
 }
