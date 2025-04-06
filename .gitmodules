@@ -1,0 +1,3 @@
+[submodule "Hydrogen/vendor/GLFW"]
+	path = Hydrogen/vendor/GLFW
+	url = https://github.com/TheCherno/glfw

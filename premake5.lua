@@ -9,6 +9,11 @@ workspace "Hydrogen"
 
 outputDir = "%{cfg.system}/%{cfg.architecture}/%{cfg.buildcfg}"
 
+IncludeDir = {}
+IncludeDir["GLFW"] = "Hydrogen/vendor/GLFW/include"
+
+include "Hydrogen/vendor/GLFW"
+
 project "Hydrogen"
     location "Hydrogen"
     kind "SharedLib"
@@ -22,7 +27,12 @@ project "Hydrogen"
     }
 
     includedirs {
+        "%{IncludeDir.GLFW}"
+    }
 
+    links {
+        "GLFW",
+        "opengl32.lib"
     }
 
     filter "system:windows"
