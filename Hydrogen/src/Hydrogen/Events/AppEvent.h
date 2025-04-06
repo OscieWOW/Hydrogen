@@ -7,13 +7,13 @@ namespace Hydrogen {
 		public:
 
 		public:
-			AppUpdate(float deltaTime):Event(EventType::AppUpdate),deltaTime(deltaTime) {}
+			AppUpdate(std::chrono::nanoseconds deltaTime):Event(EventType::AppUpdate),deltaTime(deltaTime) {}
 
-			std::string traceEvent() override { return "App update deltaTime:"+std::to_string(deltaTime); }
+			std::string traceEvent() override { return "App update deltaTime:"+std::to_string(deltaTime.count()); }
 			static EventType staticGetType() { return EventType::AppUpdate; }
 
 		private:
-			float deltaTime;
+			std::chrono::nanoseconds deltaTime;
 	};
 	class H_API AppRender:public Event {
 		public:

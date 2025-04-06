@@ -32,12 +32,13 @@ namespace Hydrogen {
 			bool onAppUpdate(AppUpdate& e);
 			bool onAppRender(AppRender& e);
 
-			virtual void run() = 0;
+			void run();
 			void onEvent(Event& e);
 
 
 		public:
 			appSpecs specs;
+			bool running = true;
 
 		protected:
 			LayerStack m_layerStack;

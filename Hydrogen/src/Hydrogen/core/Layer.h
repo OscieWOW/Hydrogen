@@ -10,7 +10,7 @@ namespace Hydrogen {
 			virtual ~Layer() = default;
 
 			virtual void onEvent(Event& e) = 0;
-			virtual void onUpdate(float deltaTime) = 0;
+			virtual void onUpdate(std::chrono::nanoseconds deltaTime) = 0;
 			virtual void onAttach() = 0;
 			virtual void onDetach() = 0;
 

@@ -13,6 +13,11 @@ namespace Hydrogen {
 			layer->onEvent(e);
 		}
 	}
+	void LayerStack::onUpdate(std::chrono::nanoseconds dTime) {
+		for(auto layer:m_layerStack) {
+			layer->onUpdate(dTime);
+		}
+	}
 
 	void LayerStack::pushLayer(Scope<Layer> layer) {
 		layer->onAttach();
@@ -20,10 +25,5 @@ namespace Hydrogen {
 	}
 	void LayerStack::popLayer(Scope<Layer> layer) {
 		
-	}
-
-	LayerStack& LayerStack::operator=(const LayerStack& other) {
-		H_CORE_FATAL("LayerStack has been coppied");
-		return *this;
 	}
 }

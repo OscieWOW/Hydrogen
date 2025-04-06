@@ -5,15 +5,10 @@
 
 class ExampleApp:public Hydrogen::Application {
 	public:
-		ExampleApp(Hydrogen::appSpecs appSpecs):Application(appSpecs) {}
-
-		void run() override {
-			Hydrogen::Scope<ExampleLayer> layer = Hydrogen::createScope<ExampleLayer>("name");
-			m_layerStack.pushLayer(std::move(layer));
-			
-			Hydrogen::GameUpdate e = Hydrogen::GameUpdate(5.61f);
-			onEvent(e);
-			}
+		ExampleApp(Hydrogen::appSpecs appSpecs):Application(appSpecs) {
+			Hydrogen::Scope<ExampleLayer> exampleLayer = Hydrogen::createScope<ExampleLayer>("GAME UPDATES", [this]() {running = false; });
+			m_layerStack.pushLayer(std::move(exampleLayer));
+		}
 };
 
 Hydrogen::Application* Hydrogen::createApp() {

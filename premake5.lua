@@ -29,6 +29,7 @@ project "Hydrogen"
         cppdialect "C++20"
         staticruntime "on"
         systemversion "latest"
+        buildoptions "/MDd"
         
         defines {
             "PLATFORM_WINDOWS",
@@ -75,6 +76,7 @@ project "ExampleApplication"
         cppdialect "C++20"
         staticruntime "on"
         systemversion "latest"
+        buildoptions "/MDd"
 
         defines {
             "PLATFORM_WINDOWS"

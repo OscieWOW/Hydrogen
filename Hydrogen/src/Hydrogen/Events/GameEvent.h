@@ -5,12 +5,12 @@
 namespace Hydrogen {
 	class H_API GameUpdate:public Event {
 		public:
-			float deltaTime;
+			std::chrono::nanoseconds deltaTime;
 
 		public:
-			GameUpdate(float deltaTime):Event(EventType::GameUpdate),deltaTime(deltaTime) {			}
+			GameUpdate(std::chrono::nanoseconds deltaTime):Event(EventType::GameUpdate),deltaTime(deltaTime) {			}
 
-			std::string traceEvent() override {return std::to_string(deltaTime);}
+			std::string traceEvent() override {return std::to_string(deltaTime.count());}
 			static EventType staticGetType() {return EventType::GameUpdate;}
 	};
 

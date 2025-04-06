@@ -9,9 +9,8 @@ namespace Hydrogen {
 			LayerStack();
 			LayerStack(const LayerStack&);
 
-			LayerStack& operator=(const LayerStack& other);
-
 			void onEvent(Event&);
+			void onUpdate(std::chrono::nanoseconds dTime);
 
 			void pushLayer(Scope<Layer> layer);
 			void popLayer(Scope<Layer> layer);
