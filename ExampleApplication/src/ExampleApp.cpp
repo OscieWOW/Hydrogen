@@ -12,7 +12,7 @@ class ExampleApp:public Hydrogen::Application {
 };
 
 Hydrogen::Application* Hydrogen::createApp() {
-	std::string name = "createName";	
+	std::string name = "Hydrogen";	
 	Hydrogen::appSpecs appSpec = Hydrogen::appSpecs(&name);
 
 	ExampleApp* app = new ExampleApp(appSpec);

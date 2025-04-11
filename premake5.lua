@@ -10,7 +10,7 @@ workspace "Hydrogen"
 outputDir = "%{cfg.system}/%{cfg.architecture}/%{cfg.buildcfg}"
 
 IncludeDir = {}
-IncludeDir["GLFW"] = "Hydrogen/vendor/GLFW/include"
+IncludeDir["GLFW"] = "%{wks.location}/Hydrogen/vendor/GLFW/include"
 
 include "Hydrogen/vendor/GLFW"
 
@@ -27,7 +27,7 @@ project "Hydrogen"
     }
 
     includedirs {
-        "%{IncludeDir.GLFW}"
+      "%{wks.location}/Hydrogen/vendor/GLFW/include"
     }
 
     links {
@@ -75,7 +75,8 @@ project "ExampleApplication"
     }
 
     includedirs {
-        "Hydrogen/src"
+        "Hydrogen/src",
+        "%{wks.location}/Hydrogen/vendor/GLFW/include"
     }
 
     links {

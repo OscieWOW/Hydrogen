@@ -15,5 +15,5 @@ class ExampleLayer:public Hydrogen::Layer {
 	public:
 		std::function<void()> abort;
 		std::chrono::nanoseconds timeElapsed = std::chrono::nanoseconds(std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::seconds(0)));
-		std::chrono::nanoseconds criteriaTime = std::chrono::nanoseconds(std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::seconds(5)));
+		std::chrono::nanoseconds criteriaTime = std::chrono::nanoseconds(std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::seconds(30)));
 };
