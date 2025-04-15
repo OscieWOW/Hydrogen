@@ -10,7 +10,7 @@ namespace Hydrogen {
 		public:
 			GameUpdate(std::chrono::nanoseconds deltaTime):Event(EventType::GameUpdate),deltaTime(deltaTime) {			}
 
-			std::string traceEvent() override {return std::to_string(deltaTime.count());}
+			std::string traceEvent() override {return "GameUpdate dt:"+std::to_string(deltaTime.count());}
 			static EventType staticGetType() {return EventType::GameUpdate;}
 	};
 

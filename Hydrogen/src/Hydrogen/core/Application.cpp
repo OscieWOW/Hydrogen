@@ -31,6 +31,9 @@ namespace Hydrogen {
 
 		//Window Events
 		dispatcher->dispatch<WindowClose>(BIND_EVENT_FUNCTION(onWindowClose));
+		dispatcher->dispatch<WindowResize>(BIND_EVENT_FUNCTION(onWindowResize));
+		dispatcher->dispatch<WindowFocus>(BIND_EVENT_FUNCTION(onWindowFocus));
+		dispatcher->dispatch<WindowLostFocus>(BIND_EVENT_FUNCTION(onWindowLostFocus));
 
 		m_layerStack.onEvent(e);
 	}
@@ -44,7 +47,20 @@ namespace Hydrogen {
 	}
 
 	bool Application::onWindowClose(WindowClose& e) {
+		H_CORE_MESSAGE(e.traceEvent());
 		running = false;
+		return true;
+	}
+	bool Application::onWindowResize(WindowResize& e) {
+		H_CORE_MESSAGE(e.traceEvent());
+		return true;
+	}
+	bool Application::onWindowFocus(WindowFocus& e) {
+		H_CORE_MESSAGE(e.traceEvent());
+		return true;
+	}
+	bool Application::onWindowLostFocus(WindowLostFocus& e){
+		H_CORE_MESSAGE(e.traceEvent());
 		return true;
 	}
 }

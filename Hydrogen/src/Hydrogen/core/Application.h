@@ -27,6 +27,10 @@ namespace Hydrogen {
 			bool onAppRender(AppRender& e);
 
 			bool onWindowClose(WindowClose& e);
+			bool onWindowResize(WindowResize& e);
+			bool onWindowFocus(WindowFocus& e);
+			bool onWindowLostFocus(WindowLostFocus& e);
+
 
 			void run();
 			void onEvent(Event& e);

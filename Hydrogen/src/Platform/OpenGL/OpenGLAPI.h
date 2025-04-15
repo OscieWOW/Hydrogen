@@ -5,6 +5,7 @@
 #include "../../Hydrogen/Events/WindowEvent.h"
 #include "../../Hydrogen/Events/AppEvent.h"
 
+#include <GLAD/glad.h>
 #include <GLFW/glfw3.h>
 
 namespace RenderAPI {

@@ -11,8 +11,10 @@ outputDir = "%{cfg.system}/%{cfg.architecture}/%{cfg.buildcfg}"
 
 IncludeDir = {}
 IncludeDir["GLFW"] = "%{wks.location}/Hydrogen/vendor/GLFW/include"
+IncludeDir["GLAD"] = "%{wks.location}/Hydrogen/vendor/GLAD/include"
 
 include "Hydrogen/vendor/GLFW"
+include "Hydrogen/vendor/GLAD"
 
 project "Hydrogen"
     location "Hydrogen"
@@ -27,11 +29,13 @@ project "Hydrogen"
     }
 
     includedirs {
-      "%{wks.location}/Hydrogen/vendor/GLFW/include"
+      "%{wks.location}/Hydrogen/vendor/GLFW/include",
+      "%{IncludeDir.GLAD}"
     }
 
     links {
         "GLFW",
+        "GLAD",
         "opengl32.lib"
     }
 
@@ -76,7 +80,8 @@ project "ExampleApplication"
 
     includedirs {
         "Hydrogen/src",
-        "%{wks.location}/Hydrogen/vendor/GLFW/include"
+        "%{wks.location}/Hydrogen/vendor/GLFW/include",
+        "%{IncludeDir.GLAD}"
     }
 
     links {

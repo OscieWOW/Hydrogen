@@ -18,13 +18,39 @@ namespace RenderAPI {
 		glfwMakeContextCurrent(m_window);
 		windowOpen = true;
 
+		if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+			H_CORE_FATAL("Failed to initialize GLAD");
+			exit(-1);
+		}
+		glViewport(0,0,data.width, data.height);
+
 		glfwSetWindowCloseCallback(m_window, [](GLFWwindow* window) {
 			WindowData* data = (WindowData*)glfwGetWindowUserPointer(window);
+
 			Hydrogen::WindowClose e = Hydrogen::WindowClose();
-			if(data && data->onEvent) {
+			data->onEvent(e);
+		});
+
+		glfwSetWindowSizeCallback(m_window, [](GLFWwindow* window, int width, int height) {
+			WindowData* data = (WindowData*)glfwGetWindowUserPointer(window);
+
+			Hydrogen::WindowResize e = Hydrogen::WindowResize(width, height);
+			data->onEvent(e);
+		});
+
+		glfwSetFramebufferSizeCallback(m_window, [](GLFWwindow* window, int width, int height) {
+			glViewport(0,0,width, height);
+		});
+
+		glfwSetWindowFocusCallback(m_window, [](GLFWwindow* window, int focus) {
+			WindowData* data = (WindowData*)glfwGetWindowUserPointer(window);
+			
+			if(focus == GLFW_TRUE) {
+				Hydrogen::WindowFocus e = Hydrogen::WindowFocus();
 				data->onEvent(e);
 			} else {
-				H_CORE_FATAL("window data is a null pointer");
+				Hydrogen::WindowLostFocus e = Hydrogen::WindowLostFocus();
+				data->onEvent(e);
 			}
 		});
 	}
@@ -35,6 +61,11 @@ namespace RenderAPI {
 
 	void OpenGLWindow::update() {
 		glfwPollEvents();
+
+		glClearColor(0.2f, 0.1f, 0.5f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		glfwSwapBuffers(m_window);
 	}
 }
 

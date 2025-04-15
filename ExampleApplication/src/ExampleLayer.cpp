@@ -4,6 +4,7 @@ ExampleLayer::ExampleLayer(const std::string& name, std::function<void()> abort)
 }
 void ExampleLayer::onEvent(Hydrogen::Event& e) {
 	Hydrogen::EventDispatcher eventDispatcher = Hydrogen::EventDispatcher(e);
+
 	eventDispatcher.dispatch<Hydrogen::GameUpdate>(BIND_EVENT_FUNCTION(onGameUpdate));
 }
 void ExampleLayer::onUpdate(std::chrono::nanoseconds deltaTime) {
