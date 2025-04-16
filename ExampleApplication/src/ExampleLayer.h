@@ -4,16 +4,16 @@
 
 class ExampleLayer:public Hydrogen::Layer {
 	public:
-	ExampleLayer(const std::string& name = "ExampleLayer", std::function<void()> abort = []() {});
+	ExampleLayer(Hydrogen::Handle<RenderAPI::Renderer> renderer,const std::string& name = "ExampleLayer");
 		void onEvent(Hydrogen::Event& e) override;
 		void onUpdate(std::chrono::nanoseconds deltaTime) override;
 		void onAttach() override;
 		void onDetach() override;
 
-		bool onGameUpdate(Hydrogen::GameUpdate& e);
+		bool onKeyPress(Hydrogen::KeyPressed& e);
 
-	public:
-		std::function<void()> abort;
-		std::chrono::nanoseconds timeElapsed = std::chrono::nanoseconds(std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::seconds(0)));
-		std::chrono::nanoseconds criteriaTime = std::chrono::nanoseconds(std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::seconds(30)));
+	private:
+		int colourState1 = 0;
+		int colourState2 = 0;
+		Hydrogen::Handle<RenderAPI::Renderer> renderer;
 };

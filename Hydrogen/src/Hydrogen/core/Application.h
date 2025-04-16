@@ -6,8 +6,11 @@
 #include "../Events/GameEvent.h"
 #include "../Events/WindowEvent.h"
 #include "../Events/AppEvent.h"
+#include "../Events/KeyEvent.h"
 #include "LayerStack.h"
 #include "../Renderer/Window.h"
+#include "../Renderer/RenderAPI.h"
+#include "KeyCodes.h"
 
 namespace Hydrogen {
 	struct H_API appSpecs {
@@ -27,9 +30,6 @@ namespace Hydrogen {
 			bool onAppRender(AppRender& e);
 
 			bool onWindowClose(WindowClose& e);
-			bool onWindowResize(WindowResize& e);
-			bool onWindowFocus(WindowFocus& e);
-			bool onWindowLostFocus(WindowLostFocus& e);
 
 
 			void run();
@@ -43,6 +43,7 @@ namespace Hydrogen {
 		protected:
 			LayerStack m_layerStack;
 			Scope<RenderAPI::Window> m_window;
+			Ref<RenderAPI::Renderer> m_renderer;
 	};
 	Application* createApp();
 }

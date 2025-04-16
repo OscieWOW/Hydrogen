@@ -50,15 +50,15 @@ namespace Hydrogen {
 		public:
 
 		public:
-			WindowMoved(int deltaX, int deltaY):Event(EventType::WindowMoved), m_deltaX(deltaX), m_deltaY(deltaY) {}
+			WindowMoved(int X, int Y):Event(EventType::WindowMoved), m_X(X), m_Y(Y) {}
 
-			int getDeltaX() { return m_deltaX; }
-			int getDeltaY() { return m_deltaY; }
+			int getX() { return m_X; }
+			int getY() { return m_Y; }
 			
-			std::string traceEvent() override { return "Window moved:"+std::to_string(m_deltaX)+" "+std::to_string(m_deltaY); }
+			std::string traceEvent() override { return "Window moved:"+std::to_string(m_X)+" "+std::to_string(m_Y); }
 			static EventType staticGetType() { return EventType::WindowMoved; }
 
 		private:
-			int m_deltaX, m_deltaY;
+			int m_X, m_Y;
 	};
 }

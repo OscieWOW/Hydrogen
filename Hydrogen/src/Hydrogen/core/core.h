@@ -32,4 +32,38 @@ namespace Hydrogen {
 	constexpr Scope<T> createScope(Args&& ... args) {
 		return std::make_unique<T>(std::forward<Args>(args)...);
 	}
+
+	template<typename T>
+	class Handle {
+		public:
+			Handle() = default;
+			Handle(const Ref<T>& shared):m_ptr(shared) {}
+			Handle(const std::weak_ptr<T>& weak):m_ptr(weak) {}
+
+			Handle& operator=(const Ref<T>& shared) {
+				m_ptr = shared;
+				return *this;
+			}
+			Handle& operator=(const std::weak_ptr<T>& weak) {
+				m_ptr = weak;
+				return *this;
+			}
+			T* operator->() const {
+				auto shared = m_ptr.lock();
+				//std::cout << shared << std::endl;
+				return shared ? shared.get() : nullptr;
+			}
+			T& operator*() const {
+				return *m_ptr.lock();
+			}
+			explicit operator bool() const {
+				return !m_ptr.expired();
+			}
+			std::shared_ptr<T> lock() const {
+				return m_ptr.lock();
+			}
+
+		private:
+			std::weak_ptr<T> m_ptr;
+	};
 }

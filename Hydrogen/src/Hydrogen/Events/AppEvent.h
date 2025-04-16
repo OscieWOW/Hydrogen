@@ -19,9 +19,9 @@ namespace Hydrogen {
 		public:
 
 		public:
-		AppRender():Event(EventType::AppRender) {}
+			AppRender():Event(EventType::AppRender) {}
 
-		std::string traceEvent() override { return "App rendering"; }
-		static EventType staticGetType() { return EventType::AppRender; }
+			std::string traceEvent() override { return "App rendering"; }
+			static EventType staticGetType() { return EventType::AppRender; }
 	};
 }

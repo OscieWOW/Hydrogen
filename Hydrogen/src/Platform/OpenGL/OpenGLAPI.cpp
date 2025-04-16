@@ -1,7 +1,7 @@
 #include "OpenGLAPI.h"
 
-namespace RenderAPI {
-	OpenGLWindow::OpenGLWindow(WindowData data):Window(data) {
+namespace OpenGLAPI {
+	OpenGLWindow::OpenGLWindow(RenderAPI::WindowData data, Hydrogen::Handle<OpenGLAPI::OpenGLRenderer> renderer):Window(data),renderer(renderer) {
 		glfwInit();
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -23,16 +23,16 @@ namespace RenderAPI {
 			exit(-1);
 		}
 		glViewport(0,0,data.width, data.height);
-
+		renderer->setClearColour(RenderAPI::Colour(0, 239, 6, 255));
 		glfwSetWindowCloseCallback(m_window, [](GLFWwindow* window) {
-			WindowData* data = (WindowData*)glfwGetWindowUserPointer(window);
+			RenderAPI::WindowData* data = (RenderAPI::WindowData*)glfwGetWindowUserPointer(window);
 
 			Hydrogen::WindowClose e = Hydrogen::WindowClose();
 			data->onEvent(e);
 		});
 
 		glfwSetWindowSizeCallback(m_window, [](GLFWwindow* window, int width, int height) {
-			WindowData* data = (WindowData*)glfwGetWindowUserPointer(window);
+			RenderAPI::WindowData* data = (RenderAPI::WindowData*)glfwGetWindowUserPointer(window);
 
 			Hydrogen::WindowResize e = Hydrogen::WindowResize(width, height);
 			data->onEvent(e);
@@ -43,7 +43,7 @@ namespace RenderAPI {
 		});
 
 		glfwSetWindowFocusCallback(m_window, [](GLFWwindow* window, int focus) {
-			WindowData* data = (WindowData*)glfwGetWindowUserPointer(window);
+			RenderAPI::WindowData* data = (RenderAPI::WindowData*)glfwGetWindowUserPointer(window);
 			
 			if(focus == GLFW_TRUE) {
 				Hydrogen::WindowFocus e = Hydrogen::WindowFocus();
@@ -53,6 +53,73 @@ namespace RenderAPI {
 				data->onEvent(e);
 			}
 		});
+
+		glfwSetKeyCallback(m_window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
+			RenderAPI::WindowData* data = (RenderAPI::WindowData*)glfwGetWindowUserPointer(window);
+			if(glfwGetKeyName(key, scancode)) {
+				switch(action) {
+					case(GLFW_PRESS):
+					{
+						Hydrogen::KeyPressed e = Hydrogen::KeyPressed(key,false);
+						data->onEvent(e);
+						break;
+					}
+					case(GLFW_RELEASE):
+					{
+						Hydrogen::KeyReleased e = Hydrogen::KeyReleased(key);
+						data->onEvent(e);
+						break;
+					}
+					case(GLFW_REPEAT):
+					{
+						Hydrogen::KeyPressed e = Hydrogen::KeyPressed(key, true);
+						data->onEvent(e);
+						break;
+					}
+				}
+			} else {
+				H_CORE_WARN("non printable key");
+			}
+		});
+
+		glfwSetWindowPosCallback(m_window, [](GLFWwindow* window, int x, int y) {
+			RenderAPI::WindowData* data = (RenderAPI::WindowData*)glfwGetWindowUserPointer(window);
+
+			Hydrogen::WindowMoved e = Hydrogen::WindowMoved(x,y);
+			data->onEvent(e);
+		});
+
+		glfwSetMouseButtonCallback(m_window, [](GLFWwindow* window,int button, int action, int mods) {
+			RenderAPI::WindowData* data = (RenderAPI::WindowData*)glfwGetWindowUserPointer(window);
+
+			switch(action) {
+				case(GLFW_PRESS): {
+					Hydrogen::MouseButtonPressed e = Hydrogen::MouseButtonPressed(button);
+					data->onEvent(e);
+					break;
+				}
+				case(GLFW_RELEASE):
+				{
+					Hydrogen::MouseButtonReleased e = Hydrogen::MouseButtonReleased(button);
+					data->onEvent(e);
+					break;
+				}
+			}
+		});
+
+		glfwSetCursorPosCallback(m_window, [](GLFWwindow* window, double x, double y) {
+			RenderAPI::WindowData* data = (RenderAPI::WindowData*)glfwGetWindowUserPointer(window);
+
+			Hydrogen::MouseMoved e = Hydrogen::MouseMoved((int)x, (int)y);
+			data->onEvent(e);
+		});
+
+		glfwSetScrollCallback(m_window, [](GLFWwindow* window, double xOffset, double yOffset) {
+			RenderAPI::WindowData* data = (RenderAPI::WindowData*)glfwGetWindowUserPointer(window);
+
+			Hydrogen::MouseScrolled e = Hydrogen::MouseScrolled(yOffset);
+			data->onEvent(e);
+		});
 	}
 	OpenGLWindow::~OpenGLWindow() {
 		glfwDestroyWindow(m_window);
@@ -61,11 +128,14 @@ namespace RenderAPI {
 
 	void OpenGLWindow::update() {
 		glfwPollEvents();
-
-		glClearColor(0.2f, 0.1f, 0.5f, 1.0f);
+	}
+	void OpenGLWindow::render() {
 		glClear(GL_COLOR_BUFFER_BIT);
-
 		glfwSwapBuffers(m_window);
+	}
+
+	OpenGLWindow::operator GLFWwindow*() {
+		return m_window;
 	}
 }
 
