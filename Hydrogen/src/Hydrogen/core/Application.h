@@ -10,6 +10,7 @@
 #include "LayerStack.h"
 #include "../Renderer/Window.h"
 #include "../Renderer/RenderAPI.h"
+#include "../Renderer/Shader.h"
 #include "KeyCodes.h"
 
 namespace Hydrogen {
@@ -23,7 +24,7 @@ namespace Hydrogen {
 
 	class H_API Application {
 		public:
-			Application(const appSpecs specs);
+			Application(const appSpecs specs, Ref<RenderAPI::Renderer> renderer);
 			~Application();
 
 			bool onAppUpdate(AppUpdate& e);
@@ -34,7 +35,6 @@ namespace Hydrogen {
 
 			void run();
 			void onEvent(Event& e);
-
 
 		public:
 			appSpecs specs;

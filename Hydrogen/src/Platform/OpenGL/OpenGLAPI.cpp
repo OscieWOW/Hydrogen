@@ -78,7 +78,6 @@ namespace OpenGLAPI {
 					}
 				}
 			} else {
-				H_CORE_WARN("non printable key");
 			}
 		});
 

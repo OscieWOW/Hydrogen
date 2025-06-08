@@ -6,10 +6,6 @@
 #include "RenderAPI.h"
 
 namespace RenderAPI {
-	enum class H_API Renderers {
-		OpenGL
-	};
-	static Renderers renderAPI = Renderers::OpenGL;
 
 	struct WindowData {
 		std::string title;

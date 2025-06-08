@@ -15,5 +15,5 @@ class ExampleLayer:public Hydrogen::Layer {
 	private:
 		int colourState1 = 0;
 		int colourState2 = 0;
-		Hydrogen::Handle<RenderAPI::Renderer> renderer;
+		Hydrogen::Handle<RenderAPI::Renderer> m_renderer;
 };

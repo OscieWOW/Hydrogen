@@ -1,8 +1,13 @@
 #include "Application.h"
 
 namespace Hydrogen {
-	Application::Application(const appSpecs specs):specs(specs) {
-		m_renderer = RenderAPI::Renderer::createRenderer();
+	Application::Application(const appSpecs specs, Ref<RenderAPI::Renderer> renderer):specs(specs) {
+		if(!renderer) {
+			H_CORE_FATAL("THE RENDERER IS REQUIRED TO BE CREATED");
+			exit(-1);
+		}
+
+		m_renderer = std::move(renderer);
 
 		RenderAPI::WindowData windowData = RenderAPI::WindowData(*specs.appName,800,600);
 		m_window = RenderAPI::Window::createWindow(windowData, m_renderer);

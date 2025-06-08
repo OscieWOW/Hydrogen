@@ -1,8 +1,14 @@
 #pragma once
 
 #include "../Core/Core.h"
+#include "Shader.h"
 
 namespace RenderAPI {
+	enum class H_API Renderers {
+		OpenGL
+	};
+	static Renderers renderAPI = Renderers::OpenGL;
+
 	struct Colour {
 		Colour(int red, int green, int blue, int alpha = 255):red(red), green(green), blue(blue), alpha(alpha) {}
 		
@@ -16,9 +22,12 @@ namespace RenderAPI {
 
 	class H_API Renderer {
 		public:
-			static Hydrogen::Ref<Renderer> createRenderer();
+			static Hydrogen::Ref<Renderer> createRenderer(Hydrogen::Scope<Shader> shader);
 		public:
-			Renderer();
+			Renderer(Hydrogen::Scope<Shader> shader);
 			virtual void setClearColour(Colour colour) = 0;
+
+			protected:
+				Hydrogen::Scope<Shader> m_shader;
 	};
 }
