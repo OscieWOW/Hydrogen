@@ -7,6 +7,7 @@
 #include <sstream>
 #include <fstream>
 #include <functional>
+#include <map>
 
 #ifdef PLATFORM_WINDOWS
 	#ifdef BUILD_DLL

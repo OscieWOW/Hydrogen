@@ -11,4 +11,9 @@ namespace RenderAPI {
 		}
 	}
 	Renderer::Renderer(Hydrogen::Scope<Shader> shader):m_shader(std::move(shader)) {}
+	Renderer::~Renderer() {}
+	
+	void Renderer::compileShaders() { 
+		m_shader->compileProgram();
+	}
 }

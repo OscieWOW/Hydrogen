@@ -23,7 +23,7 @@ namespace OpenGLAPI {
 
 		private:
 			GLFWwindow* m_window;
-			Hydrogen::Handle<OpenGLRenderer> renderer;
+			Hydrogen::Handle<OpenGLRenderer> m_renderer;
 			
 	};
 }

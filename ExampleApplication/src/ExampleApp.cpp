@@ -17,6 +17,8 @@ Hydrogen::Application* Hydrogen::createApp() {
 
 	Hydrogen::Scope<RenderAPI::Shader> shader = RenderAPI::Shader::createShader();
 	shader->addShaderSource(RenderAPI::ShaderType::VERTEX, "Assets\\Shaders\\VertexShader.vert");
+	shader->addShaderSource(RenderAPI::ShaderType::FRAGMENT, "Assets\\Shaders\\FragmentShader.frag");
+	//shader->compileProgram();
 
 	Hydrogen::Ref<RenderAPI::Renderer> renderer = RenderAPI::Renderer::createRenderer(std::move(shader));
 

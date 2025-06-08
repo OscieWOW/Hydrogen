@@ -25,9 +25,13 @@ namespace RenderAPI {
 			static Hydrogen::Ref<Renderer> createRenderer(Hydrogen::Scope<Shader> shader);
 		public:
 			Renderer(Hydrogen::Scope<Shader> shader);
-			virtual void setClearColour(Colour colour) = 0;
+			virtual ~Renderer();
 
-			protected:
-				Hydrogen::Scope<Shader> m_shader;
+			virtual void setClearColour(Colour colour) = 0;
+			void compileShaders();
+			virtual void render() = 0;
+
+		protected:
+			Hydrogen::Scope<Shader> m_shader;
 	};
 }

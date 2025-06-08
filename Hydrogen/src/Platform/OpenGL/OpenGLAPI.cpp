@@ -1,7 +1,7 @@
 #include "OpenGLAPI.h"
 
 namespace OpenGLAPI {
-	OpenGLWindow::OpenGLWindow(RenderAPI::WindowData data, Hydrogen::Handle<OpenGLAPI::OpenGLRenderer> renderer):Window(data),renderer(renderer) {
+	OpenGLWindow::OpenGLWindow(RenderAPI::WindowData data, Hydrogen::Handle<OpenGLAPI::OpenGLRenderer> renderer):Window(data),m_renderer(renderer) {
 		glfwInit();
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -24,6 +24,8 @@ namespace OpenGLAPI {
 		}
 		glViewport(0,0,data.width, data.height);
 		renderer->setClearColour(RenderAPI::Colour(0, 239, 6, 255));
+		renderer->compileShaders();
+
 		glfwSetWindowCloseCallback(m_window, [](GLFWwindow* window) {
 			RenderAPI::WindowData* data = (RenderAPI::WindowData*)glfwGetWindowUserPointer(window);
 
@@ -129,7 +131,8 @@ namespace OpenGLAPI {
 		glfwPollEvents();
 	}
 	void OpenGLWindow::render() {
-		glClear(GL_COLOR_BUFFER_BIT);
+		m_renderer->render();
+
 		glfwSwapBuffers(m_window);
 	}
 

@@ -16,5 +16,7 @@ namespace RenderAPI {
 			Shader() = default;
 			virtual void compileProgram() = 0;
 			virtual void addShaderSource(ShaderType type, std::string source) = 0;
+			virtual void useProgram() = 0;
+			virtual void deleteShader() = 0;
 	};
 }

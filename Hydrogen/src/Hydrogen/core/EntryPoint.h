@@ -9,7 +9,7 @@ extern Hydrogen::Application* Hydrogen::createApp();
 int main() {
 	Hydrogen::Log::logInit();
 
-	H_CORE_TRACE("initialising the app");
+	H_CORE_TRACE("Initialising the app");
 	Hydrogen::Application* app = Hydrogen::createApp();
 
 	H_CORE_TRACE("running the app");
