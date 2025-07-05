@@ -1,3 +1,6 @@
 [submodule "Hydrogen/vendor/GLFW"]
 	path = Hydrogen/vendor/GLFW
 	url = https://github.com/TheCherno/glfw
+[submodule "Hydrogen/vendor/GLM"]
+	path = Hydrogen/vendor/GLM
+	url = https://github.com/g-truc/glm

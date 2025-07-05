@@ -1,12 +1,7 @@
 #include "OpenGLAPI.h"
 
 namespace OpenGLAPI {
-	OpenGLWindow::OpenGLWindow(RenderAPI::WindowData data, Hydrogen::Handle<OpenGLAPI::OpenGLRenderer> renderer):Window(data),m_renderer(renderer) {
-		glfwInit();
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
+	OpenGLWindow::OpenGLWindow(RenderAPI::WindowData data):Window(data) {
 		m_window = glfwCreateWindow(data.width, data.height, data.title.c_str(), NULL, NULL);
 		if(m_window == NULL) {
 			H_CORE_FATAL("GLFW WINDOW FAILED TO CREATE");
@@ -18,13 +13,11 @@ namespace OpenGLAPI {
 		glfwMakeContextCurrent(m_window);
 		windowOpen = true;
 
+		H_CORE_TRACE("Init GLAD");
 		if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 			H_CORE_FATAL("Failed to initialize GLAD");
 			exit(-1);
 		}
-		glViewport(0,0,data.width, data.height);
-		renderer->setClearColour(RenderAPI::Colour(0, 239, 6, 255));
-		renderer->compileShaders();
 
 		glfwSetWindowCloseCallback(m_window, [](GLFWwindow* window) {
 			RenderAPI::WindowData* data = (RenderAPI::WindowData*)glfwGetWindowUserPointer(window);
@@ -127,17 +120,11 @@ namespace OpenGLAPI {
 		glfwTerminate();
 	}
 
-	void OpenGLWindow::update() {
+	void OpenGLWindow::onUpdate() {
 		glfwPollEvents();
 	}
-	void OpenGLWindow::render() {
-		m_renderer->render();
-
+	void OpenGLWindow::onDrawUpdate() {
 		glfwSwapBuffers(m_window);
-	}
-
-	OpenGLWindow::operator GLFWwindow*() {
-		return m_window;
 	}
 }
 

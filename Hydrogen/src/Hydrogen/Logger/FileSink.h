@@ -7,36 +7,38 @@
 namespace Logger {
 	class H_API FileSink:public OutputSink {
 		public:
-			std::ofstream outputFile;
+			FILE* outputFile;
+			errno_t error;
 		public:	
 			FileSink(std::string filePath) {
-				outputFile = std::ofstream(filePath);
-				outputFile << "";
-				outputFile.clear();
+				error = fopen_s(&outputFile,filePath.c_str(),"w");
+				if(error != 0 || outputFile == nullptr) {
+					std::cout << "ERROR OPENING FILE" << filePath << std::endl;
+				}
 			}
 			~FileSink() {
-				outputFile.close();
+				fclose(outputFile);
 			}
 			void output(std::string message, Logger::Severity severity) override {
 				switch(severity) {
 					case Logger::Severity::TRACE:
 					{
-						outputFile << "<TRACE>" << message << std::endl;
+						fprintf(outputFile,("<TRACE>"+message+"\n").c_str());
 						break;
 					}
 					case Logger::Severity::MESSAGE:
 					{
-						outputFile << "<MESSAGE>" << message << std::endl;
+						fprintf(outputFile,("<MESSAGE>"+message+"\n").c_str());
 						break;
 					}
 					case Logger::Severity::WARNING:
 					{
-						outputFile << "<WARNING>" << message << std::endl;
+						fprintf(outputFile,("<WARNING>"+message).c_str());
 						break;
 					}
 					case Logger::Severity::FATAL:
 					{
-						outputFile << "<FATAL>" << message << std::endl;
+						fprintf(outputFile,("<FATAL>"+message).c_str());
 						break;
 					}
 				}

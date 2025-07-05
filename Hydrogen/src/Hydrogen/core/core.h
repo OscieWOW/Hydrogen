@@ -73,7 +73,7 @@ namespace Hydrogen {
 			File(std::string source, std::ios_base::openmode mode) {
 				file.open(source, mode);
 				if(!file.is_open()) {
-					std::cout << "[CORE] FILE NOT VALID" << std::endl;
+					std::cout << "[CORE] FILE NOT VALID" << source << std::endl;
 					exit(-1);
 				}
 			}

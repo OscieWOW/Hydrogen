@@ -3,10 +3,10 @@
 
 namespace RenderAPI {	
 
-	Hydrogen::Scope<Window> Window::createWindow(WindowData data, Hydrogen::Handle<Renderer> renderer) {
+	Hydrogen::Ref<Window> Window::createWindow(WindowData data) {
 		switch(renderAPI) {
 			case(Renderers::OpenGL): {
-				return Hydrogen::createScope<OpenGLAPI::OpenGLWindow>(data, std::dynamic_pointer_cast<OpenGLAPI::OpenGLRenderer>(renderer.lock()));
+				return Hydrogen::createRef<OpenGLAPI::OpenGLWindow>(data);
 				break;
 			}
 		}

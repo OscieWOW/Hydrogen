@@ -3,15 +3,19 @@
 #include "Window.h"
 
 namespace RenderAPI {
-	Hydrogen::Ref<Renderer> Renderer::createRenderer(Hydrogen::Scope<Shader> shader) {
+	Hydrogen::Ref<Renderer> Renderer::createRenderer() {
 		switch(renderAPI) {
 			case(Renderers::OpenGL): {
-				return Hydrogen::createRef<OpenGLAPI::OpenGLRenderer>(std::move(shader));
+				return Hydrogen::createRef<OpenGLAPI::OpenGLRenderer>();
 			}
 		}
 	}
-	Renderer::Renderer(Hydrogen::Scope<Shader> shader):m_shader(std::move(shader)) {}
+	Renderer::Renderer() {}
 	Renderer::~Renderer() {}
+
+	void Renderer::init(Hydrogen::Scope<Shader> shader) {
+		m_shader = std::move(shader);
+	}
 	
 	void Renderer::compileShaders() { 
 		m_shader->compileProgram();

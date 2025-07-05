@@ -9,23 +9,27 @@
 #include "../Events/KeyEvent.h"
 #include "LayerStack.h"
 #include "../Renderer/Window.h"
-#include "../Renderer/RenderAPI.h"
+#include "../Engines/RenderEngine.h"
 #include "../Renderer/Shader.h"
 #include "KeyCodes.h"
 
 namespace Hydrogen {
 	struct H_API appSpecs {
-		const std::string* appName;
+		const std::string appName;
+		RenderAPI::Renderers renderEngineType;
 
-		appSpecs(const std::string* name):appName(name) {
+		appSpecs(const std::string name, RenderAPI::Renderers renderEngineType):appName(name), renderEngineType(renderEngineType) {
 
 		}
 	};
 
 	class H_API Application {
 		public:
-			Application(const appSpecs specs, Ref<RenderAPI::Renderer> renderer);
+			Application(const appSpecs specs);
 			~Application();
+
+			virtual bool initRenderEngine();
+			virtual bool createWindow();
 
 			bool onAppUpdate(AppUpdate& e);
 			bool onAppRender(AppRender& e);
@@ -42,8 +46,9 @@ namespace Hydrogen {
 
 		protected:
 			LayerStack m_layerStack;
-			Scope<RenderAPI::Window> m_window;
-			Ref<RenderAPI::Renderer> m_renderer;
+			Ref<RenderAPI::Window> m_window;
+			Ref<RenderAPI::RenderEngine> m_renderEngine;
+			std::vector<Hydrogen::Ref<RenderAPI::Context>> m_contexts;
 	};
 	Application* createApp();
 }

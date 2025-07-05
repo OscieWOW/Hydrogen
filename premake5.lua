@@ -12,6 +12,7 @@ outputDir = "%{cfg.system}/%{cfg.architecture}/%{cfg.buildcfg}"
 IncludeDir = {}
 IncludeDir["GLFW"] = "%{wks.location}/Hydrogen/vendor/GLFW/include"
 IncludeDir["GLAD"] = "%{wks.location}/Hydrogen/vendor/GLAD/include"
+IncludeDir["GLM"] = "%{wks.location}/Hydrogen/vendor/GLM"
 
 include "Hydrogen/vendor/GLFW"
 include "Hydrogen/vendor/GLAD"
@@ -30,7 +31,8 @@ project "Hydrogen"
 
     includedirs {
       "%{wks.location}/Hydrogen/vendor/GLFW/include",
-      "%{IncludeDir.GLAD}"
+      "%{IncludeDir.GLAD}",
+      "%{IncludeDir.GLM}"
     }
 
     links {

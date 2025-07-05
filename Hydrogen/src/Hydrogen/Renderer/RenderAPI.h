@@ -2,6 +2,7 @@
 
 #include "../Core/Core.h"
 #include "Shader.h"
+#include "Context.h"
 
 namespace RenderAPI {
 	enum class H_API Renderers {
@@ -22,14 +23,16 @@ namespace RenderAPI {
 
 	class H_API Renderer {
 		public:
-			static Hydrogen::Ref<Renderer> createRenderer(Hydrogen::Scope<Shader> shader);
+			static Hydrogen::Ref<Renderer> createRenderer();
 		public:
-			Renderer(Hydrogen::Scope<Shader> shader);
+			Renderer();
 			virtual ~Renderer();
 
+			virtual void init(Hydrogen::Scope<Shader> shader);
 			virtual void setClearColour(Colour colour) = 0;
 			void compileShaders();
 			virtual void render() = 0;
+			virtual void setCurrentContext(Hydrogen::Ref<Context> context) = 0;
 
 		protected:
 			Hydrogen::Scope<Shader> m_shader;

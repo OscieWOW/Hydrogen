@@ -1,20 +1,31 @@
 #include "Application.h"
 
 namespace Hydrogen {
-	Application::Application(const appSpecs specs, Ref<RenderAPI::Renderer> renderer):specs(specs) {
-		if(!renderer) {
-			H_CORE_FATAL("THE RENDERER IS REQUIRED TO BE CREATED");
-			exit(-1);
-		}
-
-		m_renderer = std::move(renderer);
-
-		RenderAPI::WindowData windowData = RenderAPI::WindowData(*specs.appName,800,600);
-		m_window = RenderAPI::Window::createWindow(windowData, m_renderer);
-		m_window->setEventCallback(BIND_EVENT_FUNCTION(onEvent));
+	Application::Application(const appSpecs specs):specs(specs) {
+		RenderAPI::renderAPI = specs.renderEngineType;
+		m_renderEngine = createRef<RenderAPI::RenderEngine>();
 	}
 	Application::~Application() {
 	}
+
+	bool Application::initRenderEngine() {
+		Hydrogen::Scope<RenderAPI::Shader> shader = RenderAPI::Shader::createShader();
+		
+		shader->addShaderSource(RenderAPI::ShaderType::VERTEX, "src\\Assets\\Shaders\\VertexShader.vert");
+		shader->addShaderSource(RenderAPI::ShaderType::FRAGMENT, "src\\Assets\\Shaders\\FragmentShader.frag");
+		
+		m_renderEngine->init(std::move(shader));
+		
+		return true;
+	}
+	bool Application::createWindow() {
+		RenderAPI::WindowData windowData = RenderAPI::WindowData(specs.appName, 800, 600);
+		m_window = m_renderEngine->createWindow(std::move(windowData),BIND_EVENT_FUNCTION(onEvent));
+		m_contexts.push_back(createRef<RenderAPI::Context>(0, 0, m_window->m_data.width, m_window->m_data.height, m_window));
+		return true;
+	}
+
+
 
 	void Application::run() {
 		auto frameStart = std::chrono::high_resolution_clock::now();
@@ -22,8 +33,13 @@ namespace Hydrogen {
 			auto frameTime = std::chrono::high_resolution_clock::now() - frameStart;
 			frameStart = std::chrono::high_resolution_clock::now();
 
-			m_window->update();
-			m_window->render();
+			m_window->onUpdate();
+			
+			m_renderEngine->onUpdate(frameTime);
+			for(auto context:m_contexts) {
+				m_renderEngine->onRender(context);
+				context->h_window->onDrawUpdate();
+			}
 		}
 	}
 

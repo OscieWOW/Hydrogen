@@ -12,6 +12,17 @@ int main() {
 	H_CORE_TRACE("Initialising the app");
 	Hydrogen::Application* app = Hydrogen::createApp();
 
+	H_CORE_TRACE("Initialising the window");
+	if(!app->createWindow()) {
+		H_CORE_WARN("Failed to init the window");
+	}
+	
+	H_CORE_TRACE("Initialising the render engine");
+	if(!app->initRenderEngine()) {
+		H_CORE_WARN("Failed to init the render engine");
+	}
+
+
 	H_CORE_TRACE("running the app");
 	app->run();
 

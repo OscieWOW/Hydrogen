@@ -1,7 +1,6 @@
 #include "ExampleLayer.h"
 
-ExampleLayer::ExampleLayer(Hydrogen::Handle<RenderAPI::Renderer> renderer, const std::string& name):Layer(name),m_renderer(renderer) {
-	
+ExampleLayer::ExampleLayer(Hydrogen::Handle<RenderAPI::RenderEngine> renderEngine, const std::string& name):Layer(name),m_renderEngine(renderEngine) {
 }
 void ExampleLayer::onEvent(Hydrogen::Event& e) {
 	Hydrogen::EventDispatcher dispatcher = Hydrogen::EventDispatcher(e);
@@ -20,19 +19,19 @@ void ExampleLayer::onDetach() {
 bool ExampleLayer::onKeyPress(Hydrogen::KeyPressed& e) {
 	if(e.getKeycode() == Hydrogen::Key::W) {
 		if(colourState1 == 0) {
-			m_renderer->setClearColour(RenderAPI::Colour(255, 230, 0, 255));
+			m_renderEngine->setClearColour(RenderAPI::Colour(255, 230, 0, 255));
 			colourState1 = 1;
 		} else {
-			m_renderer->setClearColour(RenderAPI::Colour(246, 110, 0, 255));
+			m_renderEngine->setClearColour(RenderAPI::Colour(246, 110, 0, 255));
 			colourState1 = 0;
 		}
 	}
 	if(e.getKeycode() == Hydrogen::Key::S) {
 		if(colourState2 == 0) {
-			m_renderer->setClearColour(RenderAPI::Colour(213, 105, 174, 255));
+			m_renderEngine->setClearColour(RenderAPI::Colour(213, 105, 174, 255));
 			colourState2 = 1;
 		} else {
-			m_renderer->setClearColour(RenderAPI::Colour(75, 255, 152, 255));
+			m_renderEngine->setClearColour(RenderAPI::Colour(75, 255, 152, 255));
 			colourState2 = 0;
 		}
 	}

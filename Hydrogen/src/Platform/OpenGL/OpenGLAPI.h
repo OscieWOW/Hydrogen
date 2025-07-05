@@ -13,17 +13,13 @@
 namespace OpenGLAPI {
 	class H_API OpenGLWindow:public RenderAPI::Window {
 		public:
-			OpenGLWindow(RenderAPI::WindowData data, Hydrogen::Handle<OpenGLAPI::OpenGLRenderer> renderer);
+			OpenGLWindow(RenderAPI::WindowData data);
 			~OpenGLWindow() override;
 
-			void update() override;
-			void render() override;
-
-			operator GLFWwindow*();
+			void onUpdate() override;
+			void onDrawUpdate() override;
 
 		private:
 			GLFWwindow* m_window;
-			Hydrogen::Handle<OpenGLRenderer> m_renderer;
-			
 	};
 }
