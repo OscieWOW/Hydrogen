@@ -6,7 +6,7 @@
 class ExampleApp:public Hydrogen::Application {
 	public:
 		ExampleApp(Hydrogen::appSpecs appSpecs):Application(appSpecs) {
-			Hydrogen::Scope<ExampleLayer> exampleLayer = Hydrogen::createScope<ExampleLayer>(m_renderEngine, "GAME UPDATES");
+			Hydrogen::Scope<ExampleLayer> exampleLayer = Hydrogen::createScope<ExampleLayer>(m_renderEngine, Hydrogen::LayerData(BIND_EVENT_FUNCTION(onEvent),"ExampleLayer"));
 			m_layerStack.pushLayer(std::move(exampleLayer));	
 		}
 };

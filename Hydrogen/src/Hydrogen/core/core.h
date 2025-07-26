@@ -8,8 +8,13 @@
 #include <fstream>
 #include <functional>
 #include <map>
+#include <filesystem>
+#include <tuple>
+#include <variant>
+#include <format>
 
 #ifdef PLATFORM_WINDOWS
+	#include <windows.h>
 	#ifdef BUILD_DLL
 		#define	H_API __declspec(dllexport)
 	#else 
@@ -73,7 +78,7 @@ namespace Hydrogen {
 			File(std::string source, std::ios_base::openmode mode) {
 				file.open(source, mode);
 				if(!file.is_open()) {
-					std::cout << "[CORE] FILE NOT VALID" << source << std::endl;
+					std::cout << "[CORE] FILE NOT VALID " << source << std::endl;
 					exit(-1);
 				}
 			}

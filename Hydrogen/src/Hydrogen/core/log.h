@@ -17,12 +17,12 @@ namespace Hydrogen {
 	};
 }
 
-#define H_CORE_TRACE(msg)  Hydrogen::Log::hydrogenLogger.logTrace(msg)
-#define H_CORE_MESSAGE(msg)  Hydrogen::Log::hydrogenLogger.logMessage(msg)
-#define H_CORE_WARN(msg)  Hydrogen::Log::hydrogenLogger.logWarning(msg)
-#define H_CORE_FATAL(msg)  Hydrogen::Log::hydrogenLogger.logFatal(msg)
+#define H_CORE_TRACE(...)  Hydrogen::Log::hydrogenLogger.logTrace(__VA_ARGS__)
+#define H_CORE_MESSAGE(...)  Hydrogen::Log::hydrogenLogger.logMessage(__VA_ARGS__)
+#define H_CORE_WARN(...)  Hydrogen::Log::hydrogenLogger.logWarning(__VA_ARGS__)
+#define H_CORE_FATAL(...)  Hydrogen::Log::hydrogenLogger.logFatal(__VA_ARGS__)
 
-#define H_TRACE(msg)  Hydrogen::Log::clientLogger.logTrace(msg)
-#define H_MESSAGE(msg)  Hydrogen::Log::clientLogger.logMessage(msg)
-#define H_WARN(msg)  Hydrogen::Log::clientLogger.logWarning(msg)
-#define H_FATAL(msg)  Hydrogen::Log::clientLogger.logFatal(msg)
+#define H_TRACE(...)  Hydrogen::Log::clientLogger.logTrace(__VA_ARGS__)
+#define H_MESSAGE(...)  Hydrogen::Log::clientLogger.logMessage(__VA_ARGS__)
+#define H_WARN(...)  Hydrogen::Log::clientLogger.logWarning(__VA_ARGS__)
+#define H_FATAL(...)  Hydrogen::Log::clientLogger.logFatal(__VA_ARGS__)

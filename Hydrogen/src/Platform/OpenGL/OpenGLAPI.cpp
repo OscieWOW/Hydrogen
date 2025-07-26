@@ -51,28 +51,25 @@ namespace OpenGLAPI {
 
 		glfwSetKeyCallback(m_window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
 			RenderAPI::WindowData* data = (RenderAPI::WindowData*)glfwGetWindowUserPointer(window);
-			if(glfwGetKeyName(key, scancode)) {
-				switch(action) {
-					case(GLFW_PRESS):
-					{
-						Hydrogen::KeyPressed e = Hydrogen::KeyPressed(key,false);
-						data->onEvent(e);
-						break;
-					}
-					case(GLFW_RELEASE):
-					{
-						Hydrogen::KeyReleased e = Hydrogen::KeyReleased(key);
-						data->onEvent(e);
-						break;
-					}
-					case(GLFW_REPEAT):
-					{
-						Hydrogen::KeyPressed e = Hydrogen::KeyPressed(key, true);
-						data->onEvent(e);
-						break;
-					}
+			switch(action) {
+				case(GLFW_PRESS):
+				{
+					Hydrogen::KeyPressed e = Hydrogen::KeyPressed(key,false);
+					data->onEvent(e);
+					break;
 				}
-			} else {
+				case(GLFW_RELEASE):
+				{
+					Hydrogen::KeyReleased e = Hydrogen::KeyReleased(key);
+					data->onEvent(e);
+					break;
+				}
+				case(GLFW_REPEAT):
+				{
+					Hydrogen::KeyPressed e = Hydrogen::KeyPressed(key, true);
+					data->onEvent(e);
+					break;
+				}
 			}
 		});
 
@@ -118,6 +115,9 @@ namespace OpenGLAPI {
 	OpenGLWindow::~OpenGLWindow() {
 		glfwDestroyWindow(m_window);
 		glfwTerminate();
+	}
+	GLFWwindow* OpenGLWindow::getWindow() {
+		return m_window;
 	}
 
 	void OpenGLWindow::onUpdate() {

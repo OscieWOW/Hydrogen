@@ -15,6 +15,7 @@ namespace OpenGLAPI {
 		public:
 			OpenGLWindow(RenderAPI::WindowData data);
 			~OpenGLWindow() override;
+			GLFWwindow* getWindow();
 
 			void onUpdate() override;
 			void onDrawUpdate() override;

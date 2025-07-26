@@ -4,9 +4,15 @@
 #include "../Events/Event.h"
 
 namespace Hydrogen {
+	struct H_API LayerData {
+		const std::string name;
+		std::function<void(Event&)> onEvent;
+		LayerData(std::function<void(Event&)> onEvent, const std::string name = "Layer"):name(name), onEvent(onEvent) {}
+	};
+
 	class H_API Layer {
 		public:
-			Layer(const std::string& name = "Layer");
+			Layer(const LayerData layerData);
 			virtual ~Layer() = default;
 
 			virtual void onEvent(Event& e) = 0;
@@ -15,7 +21,7 @@ namespace Hydrogen {
 			virtual void onDetach() = 0;
 
 		protected:
-			std::string m_debugName;
+			LayerData m_layerData;
 			Logger::OutputStream m_layerLog;
 	};
 }

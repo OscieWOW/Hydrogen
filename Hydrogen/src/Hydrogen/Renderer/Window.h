@@ -3,7 +3,7 @@
 #include "../Core/Core.h"
 #include "../Events/Event.h"
 #include "../../Hydrogen/Events/AppEvent.h"
-//#include "RenderAPI.h"
+#include "Camera.h"
 
 namespace RenderAPI {
 
@@ -13,6 +13,7 @@ namespace RenderAPI {
 		std::function<void(Hydrogen::Event&)> onEvent;
 		WindowData(std::string title, int width, int height):title(title),width(width), height(height) {}
 	};
+
 	class H_API Window {
 		public:
 			static Hydrogen::Ref<Window> createWindow(WindowData data);
@@ -29,5 +30,13 @@ namespace RenderAPI {
 			WindowData m_data;
 
 		protected:
+	};
+
+	struct H_API Context {
+		int width, height;
+		int x, y;
+		Hydrogen::Ref<Window> window;
+		Camera camera;
+		Context(int x, int y, int width, int height, Hydrogen::Ref<Window> window, Camera camera):width(width), height(height), x(x), y(y), window(window), camera(camera) {}
 	};
 }

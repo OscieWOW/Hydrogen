@@ -7,14 +7,17 @@ namespace RenderAPI {
 	struct H_API Vertex {
 		glm::vec3 pos;
 		glm::vec3 normal;
+		glm::vec2 textCoord;
+		Vertex(glm::vec3 pos, glm::vec3 normal, glm::vec2 textCoord):pos(pos),normal(normal), textCoord(textCoord) {}
 	};
 
 	class H_API Mesh {
 		public:
-			Mesh(std::vector<Vertex> vertecies);
+			Mesh(std::vector<Vertex> verticies, std::vector<unsigned int> indicies, const char* texture):verticies(verticies), indicies(indicies), texture(texture) {}
 
-		protected:
-			std::vector<Vertex> m_vertecies;
+		public:
+			std::vector<Vertex> verticies;
+			std::vector<unsigned int> indicies;
+			const char* texture;
 	};
 }
-

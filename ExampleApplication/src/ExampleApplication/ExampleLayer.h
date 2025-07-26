@@ -4,7 +4,7 @@
 
 class ExampleLayer:public Hydrogen::Layer {
 	public:
-	ExampleLayer(Hydrogen::Handle<RenderAPI::RenderEngine> renderEngine,const std::string& name = "ExampleLayer");
+	ExampleLayer(Hydrogen::Handle<RenderAPI::RenderEngine> renderEngine, const Hydrogen::LayerData layerData);
 		void onEvent(Hydrogen::Event& e) override;
 		void onUpdate(std::chrono::nanoseconds deltaTime) override;
 		void onAttach() override;

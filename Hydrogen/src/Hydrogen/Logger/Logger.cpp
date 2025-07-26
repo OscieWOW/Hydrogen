@@ -93,7 +93,7 @@ namespace Logger {
 		return outputText.str();
 	}
 
-	void OutputStream::logTrace(std::string message) {
+	/*void OutputStream::logTrace(std::string message) {
 		outputSink->output(formatMessage(message),Logger::Severity::TRACE);
 	}
 	void OutputStream::logMessage(std::string message) {
@@ -107,5 +107,5 @@ namespace Logger {
 	void OutputStream::logFatal(std::string message) {
 		outputSink->output(formatMessage(message), Logger::Severity::FATAL);
 
-	}
+	}*/
 }

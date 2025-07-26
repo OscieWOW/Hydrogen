@@ -2,7 +2,8 @@
 
 #include "../Core/Core.h"
 #include "Shader.h"
-#include "Context.h"
+#include "Window.h"
+#include "Mesh.h"
 
 namespace RenderAPI {
 	enum class H_API Renderers {
@@ -28,13 +29,14 @@ namespace RenderAPI {
 			Renderer();
 			virtual ~Renderer();
 
-			virtual void init(Hydrogen::Scope<Shader> shader);
+			virtual void init();
 			virtual void setClearColour(Colour colour) = 0;
-			void compileShaders();
-			virtual void render() = 0;
+			virtual void Clear() = 0;
+			virtual int bindGeometry(RenderAPI::Mesh& geometry) = 0;
+			virtual void drawGeometry(int index) = 0;
 			virtual void setCurrentContext(Hydrogen::Ref<Context> context) = 0;
 
 		protected:
-			Hydrogen::Scope<Shader> m_shader;
+			Camera m_camera;
 	};
 }

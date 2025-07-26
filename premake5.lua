@@ -83,7 +83,8 @@ project "ExampleApplication"
     includedirs {
         "Hydrogen/src",
         "%{wks.location}/Hydrogen/vendor/GLFW/include",
-        "%{IncludeDir.GLAD}"
+        "%{IncludeDir.GLAD}",
+        "%{IncludeDir.GLM}"
     }
 
     links {

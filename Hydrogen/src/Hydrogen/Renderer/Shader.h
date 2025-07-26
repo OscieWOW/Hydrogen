@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Core/Core.h"
+#include <glm/glm.hpp>
 
 namespace RenderAPI {
 	enum H_API ShaderType {
@@ -16,6 +17,8 @@ namespace RenderAPI {
 			Shader() = default;
 			virtual void compileProgram() = 0;
 			virtual void addShaderSource(ShaderType type, std::string source) = 0;
+			virtual void addShaderCode(ShaderType type, std::string source) = 0;
+			virtual void passUniform(std::string name, std::variant<int, float, glm::mat3, glm::vec3, glm::mat4> value) = 0;
 			virtual void useProgram() = 0;
 			virtual void deleteShader() = 0;
 	};
