@@ -4,7 +4,7 @@
 #include "../Logger/Logger.h"
 
 namespace Hydrogen {
-	class H_API Log {
+	class  Log {
 		public:
 			static void logInit();
 			static Logger::OutputStream newLogger(const std::string& name);

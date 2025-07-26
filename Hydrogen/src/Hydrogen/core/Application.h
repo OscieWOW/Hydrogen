@@ -14,7 +14,7 @@
 #include "KeyCodes.h"
 
 namespace Hydrogen {
-	struct H_API appSpecs {
+	struct appSpecs {
 		const std::string appName;
 		RenderAPI::Renderers renderEngineType;
 
@@ -23,7 +23,7 @@ namespace Hydrogen {
 		}
 	};
 
-	class H_API Application {
+	class Application {
 		public:
 			Application(const appSpecs specs);
 			~Application();

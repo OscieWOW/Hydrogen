@@ -13,15 +13,6 @@
 #include <variant>
 #include <format>
 
-#ifdef PLATFORM_WINDOWS
-	#include <windows.h>
-	#ifdef BUILD_DLL
-		#define	H_API __declspec(dllexport)
-	#else 
-		#define H_API __declspec(dllimport)
-	#endif
-#endif
-
 #define BIND_EVENT_FUNCTION(func) [this](auto&&... args) -> decltype(auto) { return this->func(std::forward<decltype(args)>(args)...); }
 
 namespace Hydrogen {

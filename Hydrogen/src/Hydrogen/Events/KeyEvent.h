@@ -3,7 +3,7 @@
 #include "Event.h"
 
 namespace Hydrogen {
-	class H_API KeyPressed:public Event {
+	class  KeyPressed:public Event {
 		public:
 
 		public:
@@ -20,7 +20,7 @@ namespace Hydrogen {
 			int keycode;
 	};
 
-	class H_API KeyReleased:public Event {
+	class  KeyReleased:public Event {
 		public:
 
 		public:
@@ -35,7 +35,7 @@ namespace Hydrogen {
 			int keycode;
 	};
 
-	class H_API KeyTyped:public Event {
+	class  KeyTyped:public Event {
 		public:
 
 		public:
@@ -50,7 +50,7 @@ namespace Hydrogen {
 			int keycode;
 	};
 
-	class H_API MouseButtonPressed:public Event {
+	class  MouseButtonPressed:public Event {
 		public:
 
 		public:
@@ -65,7 +65,7 @@ namespace Hydrogen {
 			int keycode;
 	};
 
-	class H_API MouseButtonReleased:public Event {
+	class  MouseButtonReleased:public Event {
 		public:
 
 		public:
@@ -80,7 +80,7 @@ namespace Hydrogen {
 			int keycode;
 	};
 
-	class H_API MouseMoved:public Event {
+	class  MouseMoved:public Event {
 		public:
 
 		public:
@@ -92,7 +92,7 @@ namespace Hydrogen {
 		private:
 			int x, y;
 	};
-	class H_API MouseScrolled:public Event {
+	class  MouseScrolled:public Event {
 		public:
 
 		public:

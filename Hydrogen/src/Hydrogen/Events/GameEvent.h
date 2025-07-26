@@ -3,7 +3,7 @@
 #include "Event.h"
 
 namespace Hydrogen {
-	class H_API GameUpdate:public Event {
+	class  GameUpdate:public Event {
 		public:
 			std::chrono::nanoseconds deltaTime;
 
@@ -14,7 +14,7 @@ namespace Hydrogen {
 			static EventType staticGetType() {return EventType::GameUpdate;}
 	};
 
-	class H_API GameEvent:public Event {
+	class  GameEvent:public Event {
 		public:
 			std::function<void()> func;
 

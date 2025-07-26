@@ -20,6 +20,7 @@ project "GLAD"
     
     filter "system:windows"
         systemversion "latest"
+		buildoptions "/MTd"
 
     filter "configurations:Debug"
         runtime "Debug"

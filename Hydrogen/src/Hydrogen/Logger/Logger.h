@@ -7,7 +7,7 @@
 #include <format>
 
 namespace Logger {
-	class H_API OutputStream {
+	class  OutputStream {
 		public:
 			OutputStream(std::string name,Hydrogen::Ref<OutputSink> outputSink);
 			~OutputStream();

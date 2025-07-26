@@ -4,13 +4,13 @@
 #include "../Events/Event.h"
 
 namespace Hydrogen {
-	struct H_API LayerData {
+	struct LayerData {
 		const std::string name;
 		std::function<void(Event&)> onEvent;
 		LayerData(std::function<void(Event&)> onEvent, const std::string name = "Layer"):name(name), onEvent(onEvent) {}
 	};
 
-	class H_API Layer {
+	class Layer {
 		public:
 			Layer(const LayerData layerData);
 			virtual ~Layer() = default;

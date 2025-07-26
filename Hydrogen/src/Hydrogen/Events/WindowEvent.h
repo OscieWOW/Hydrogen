@@ -3,7 +3,7 @@
 #include "Event.h"
 
 namespace Hydrogen {
-	class H_API WindowClose:public Event {
+	class  WindowClose:public Event {
 		public:
 
 		public:
@@ -12,7 +12,7 @@ namespace Hydrogen {
 			std::string traceEvent() override { return "Closing window"; }
 			static EventType staticGetType() { return EventType::WindowClose; }
 	};
-	class H_API WindowResize:public Event {
+	class  WindowResize:public Event {
 		public:
 
 
@@ -28,7 +28,7 @@ namespace Hydrogen {
 		private:
 			unsigned int m_width, m_height;
 	};
-	class H_API WindowFocus:public Event {
+	class  WindowFocus:public Event {
 		public:
 
 		public:
@@ -37,7 +37,7 @@ namespace Hydrogen {
 			std::string traceEvent() override { return "Window focus"; }
 			static EventType staticGetType() { return EventType::WindowFocus; }
 	};
-	class H_API WindowLostFocus:public Event {
+	class  WindowLostFocus:public Event {
 		public:
 
 		public:
@@ -46,7 +46,7 @@ namespace Hydrogen {
 			std::string traceEvent() override { return "Window lost focus"; }
 			static EventType staticGetType() { return EventType::WindowLostFocus; }
 	};
-	class H_API WindowMoved:public Event {
+	class  WindowMoved:public Event {
 		public:
 
 		public:

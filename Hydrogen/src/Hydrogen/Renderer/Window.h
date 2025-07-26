@@ -14,7 +14,7 @@ namespace RenderAPI {
 		WindowData(std::string title, int width, int height):title(title),width(width), height(height) {}
 	};
 
-	class H_API Window {
+	class  Window {
 		public:
 			static Hydrogen::Ref<Window> createWindow(WindowData data);
 
@@ -32,7 +32,7 @@ namespace RenderAPI {
 		protected:
 	};
 
-	struct H_API Context {
+	struct  Context {
 		int width, height;
 		int x, y;
 		Hydrogen::Ref<Window> window;

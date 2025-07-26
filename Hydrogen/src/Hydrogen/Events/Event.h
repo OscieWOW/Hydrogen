@@ -4,7 +4,7 @@
 #include "../Core/Log.h"
 
 namespace Hydrogen {
-	enum class H_API EventType {
+	enum class  EventType {
 		None = 0,
 		WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved,
 		AppUpdate, AppRender,
@@ -13,7 +13,7 @@ namespace Hydrogen {
 		GameUpdate, GameEvent
 	};
 
-	class H_API Event {
+	class  Event {
 		public:
 			bool handeled = false;
 			EventType eventType;
@@ -25,7 +25,7 @@ namespace Hydrogen {
 			static EventType staticGetType() {return EventType::None;}
 	};
 
-	class H_API EventDispatcher {
+	class  EventDispatcher {
 		template<typename t> using EventFn = std::function<bool(t&)>;
 
 		private:

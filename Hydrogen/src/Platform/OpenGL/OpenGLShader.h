@@ -7,7 +7,7 @@
 #include <GLAD/glad.h>
 
 namespace OpenGLAPI {
-	class H_API OpenGLShader: public RenderAPI::Shader {
+	class  OpenGLShader: public RenderAPI::Shader {
 		public:
 			OpenGLShader();
 			void compileProgram() override;

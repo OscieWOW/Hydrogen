@@ -47,7 +47,7 @@ namespace OpenGLAPI {
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindVertexArray(0);
 		m_VAOQueue.push_back(std::make_tuple(m_VAO,m_pointCount));
-		return m_VAOQueue.size()-1;
+		return (int)m_VAOQueue.size()-1;
 	}
 	void OpenGLRenderer::drawGeometry(int index) {
 		m_pointCount = 3;

@@ -4,7 +4,7 @@
 #include "Layer.h"
 
 namespace Hydrogen {
-	class H_API LayerStack {
+	class  LayerStack {
 		public:
 			LayerStack();
 			LayerStack(const LayerStack&);

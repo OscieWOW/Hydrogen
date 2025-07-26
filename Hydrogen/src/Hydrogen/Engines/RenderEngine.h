@@ -5,7 +5,7 @@
 #include "../Renderer/Mesh.h"
 
 namespace RenderAPI {
-	class H_API RenderEngine: public Hydrogen::Engine {
+	class  RenderEngine: public Hydrogen::Engine {
 		public:
 			RenderEngine();
 			~RenderEngine();

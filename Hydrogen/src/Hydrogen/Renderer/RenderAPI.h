@@ -6,7 +6,7 @@
 #include "Mesh.h"
 
 namespace RenderAPI {
-	enum class H_API Renderers {
+	enum class  Renderers {
 		OpenGL
 	};
 	static Renderers renderAPI = Renderers::OpenGL;
@@ -22,7 +22,7 @@ namespace RenderAPI {
 		int red, green, blue, alpha;
 	};
 
-	class H_API Renderer {
+	class  Renderer {
 		public:
 			static Hydrogen::Ref<Renderer> createRenderer();
 		public:

@@ -108,7 +108,7 @@ namespace OpenGLAPI {
 		glfwSetScrollCallback(m_window, [](GLFWwindow* window, double xOffset, double yOffset) {
 			RenderAPI::WindowData* data = (RenderAPI::WindowData*)glfwGetWindowUserPointer(window);
 
-			Hydrogen::MouseScrolled e = Hydrogen::MouseScrolled(yOffset);
+			Hydrogen::MouseScrolled e = Hydrogen::MouseScrolled((int)yOffset);
 			data->onEvent(e);
 		});
 	}

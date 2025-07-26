@@ -11,7 +11,7 @@
 #include <GLFW/glfw3.h>
 
 namespace OpenGLAPI {
-	class H_API OpenGLRenderer: public RenderAPI::Renderer {
+	class  OpenGLRenderer: public RenderAPI::Renderer {
 		public:
 			OpenGLRenderer();
 			~OpenGLRenderer();

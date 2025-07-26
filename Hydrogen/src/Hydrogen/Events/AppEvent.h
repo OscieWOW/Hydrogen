@@ -3,7 +3,7 @@
 #include "Event.h"
 
 namespace Hydrogen {
-	class H_API AppUpdate:public Event {
+	class  AppUpdate:public Event {
 		public:
 
 		public:
@@ -15,7 +15,7 @@ namespace Hydrogen {
 		private:
 			std::chrono::nanoseconds deltaTime;
 	};
-	class H_API AppRender:public Event {
+	class  AppRender:public Event {
 		public:
 
 		public:

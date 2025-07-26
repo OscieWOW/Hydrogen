@@ -11,7 +11,7 @@
 #include <GLFW/glfw3.h>
 
 namespace OpenGLAPI {
-	class H_API OpenGLWindow:public RenderAPI::Window {
+	class  OpenGLWindow:public RenderAPI::Window {
 		public:
 			OpenGLWindow(RenderAPI::WindowData data);
 			~OpenGLWindow() override;

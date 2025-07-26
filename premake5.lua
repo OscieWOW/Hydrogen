@@ -19,7 +19,7 @@ include "Hydrogen/vendor/GLAD"
 
 project "Hydrogen"
     location "Hydrogen"
-    kind "SharedLib"
+    kind "StaticLib"
     language "C++"
     targetdir ("bin/" .. outputDir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputDir .. "/%{prj.name}")
@@ -45,7 +45,7 @@ project "Hydrogen"
         cppdialect "C++20"
         staticruntime "on"
         systemversion "latest"
-        buildoptions "/MDd"
+        buildoptions "/MTd"
         
         defines {
             "PLATFORM_WINDOWS",
@@ -95,7 +95,7 @@ project "ExampleApplication"
         cppdialect "C++20"
         staticruntime "on"
         systemversion "latest"
-        buildoptions "/MDd"
+        buildoptions "/MTd"
 
         defines {
             "PLATFORM_WINDOWS"

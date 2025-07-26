@@ -5,7 +5,7 @@
 #include "Sink.h"
 
 namespace Logger {
-	class H_API ConsoleSink:public OutputSink {
+	class  ConsoleSink:public OutputSink {
 		public:
 			void output(std::string message, Logger::Severity severity) override {
 				switch(severity) {

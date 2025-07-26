@@ -5,7 +5,7 @@
 #include "Sink.h"
 
 namespace Logger {
-	class H_API FileSink:public OutputSink {
+	class  FileSink:public OutputSink {
 		public:
 			FILE* outputFile;
 			errno_t error;

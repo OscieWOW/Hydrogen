@@ -4,12 +4,12 @@
 #include <glm/glm.hpp>
 
 namespace RenderAPI {
-	enum H_API ShaderType {
+	enum  ShaderType {
 		VERTEX,
 		FRAGMENT
 	};
 
-	class H_API Shader {
+	class  Shader {
 		public:
 			static Hydrogen::Scope<Shader> createShader();
 
