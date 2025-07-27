@@ -5,7 +5,6 @@
 >[!IMPORTANT]
 >Everything is subject to change so the listed features may not always be a representation of the actual implemented code. 
 
-# What is planned for the future? #
 
 ## Logger ##
 The logging system is first initialised in the entry point function.
@@ -28,39 +27,44 @@ The loggers also have macros defined in the `Log` class as:
 #define H_WARN(msg)  Hydrogen::Log::clientLogger.logWarning(msg)
 #define H_FATAL(msg)  Hydrogen::Log::clientLogger.logFatal(msg)
 ```
-Meaning that if the functions are called as follows:
+If a message is sent via trace:
 ```cpp
-H_TRACE("client example trace");
-H_MESSAGE("client example message");
-H_WARN("client example warning");
-H_FATAL("client example fatal");
+H_CORE_TRACE("core trace example");
 ```
 
->$\text{\color{White}[CLIENT 13:01:12] client example trace}$
->
->$\text{\color{Green}[CLIENT 13:01:12] client example message}$
->
->$\text{\color{Yellow}[CLIENT 13:01:12] client example warning}$
->
->$\text{\color{Red}[CLIENT 13:01:12] client example fatal}$
+Then the message is displayed according to the specified format:
+>[HYDROGEN 13:01:12] core example trace
 
-## Layers and Events ##
-Hydrogen will include an `Event` and `Layer` system. 
-The `Event` will allow many things, but one main aspect of them is that inputs to be abstracted from the engine amd the actual application.
-Layers will allow different aspects of the game to handle an event or allow it to propogate to the other layers. 
+## Layers ##
+The application class specifies `m_layerStack` which is where all layers are stored after they are added to the app. All events are prpogated through the layer stack which will call each layers onEvent function.
+Layers require `layerData` to be passed to the constructor, this will include an onEvent function for individual layers to generate events to be passed through the app aswell as a debug name for the layer's logger.
+
+## Events ##
+Events are passed by the apps onEvent function. Within the function an event dispatcher is made which will compare the generated event to a pre-specified type to then determine if the bound callback function should be run. If the app has no callback for the event then it will be propogated through the layer stack for the layers to handle events in the same way with an event dispatcher.
+``` cpp
+void Application::onEvent(Event& e) {
+	Hydrogen::Scope<EventDispatcher> dispatcher = Hydrogen::createScope<EventDispatcher>(e);
+
+	H_CORE_MESSAGE(e.traceEvent());
+
+	//App Events
+	dispatcher->dispatch<AppUpdate>(BIND_EVENT_FUNCTION(onAppUpdate));
+	dispatcher->dispatch<AppRender>(BIND_EVENT_FUNCTION(onAppRender));
+
+	//Window Events
+	dispatcher->dispatch<WindowClose>(BIND_EVENT_FUNCTION(onWindowClose));
+
+	m_layerStack.onEvent(e);
+}
+```
+All inputs are passed via either a `KeyEvent` or a `MouseEvent` this then abstracts any platform specific code from the rest of the code.
 
 ## Graphics ## 
-A graphics rendering API is planned for the future.
-The API would mean that the link between the hydrogen draw and other graphics related functions are abstracted.
-This means that multiple graphics renderers can be used seamlessly and that new renderers can be added without having to rewrite the entire or even parts of the graphics engine
-The following renderers are planned to be implemented:
-- OpenGL
-- Vulkan
+Graphics are split into seperate APIs for the different graphics APIs. Currently OpenGL is being implemented however, in the future Vulkan is planned to be implemented.
+For use in the application the graphics code is placed into the render engine which handles calls to shaders and to the render API.
 
-With others being possibly added but the main focus will be on getting openGL working and the vulkan to prove the versatility of the graphics API
+## Engines ##
+Hydrogen includes an engine system which is used to simplify code into individual functions for use in the app.
 
 ## Entity and scene systems ## 
 Entity and scene systems are also a future planned feature. This would allow games to be made easily and with minimal extra set up, all that would be required would be a scene and entities to add to the scene.
-
-## Input 
-Input into the engine is planned to be partialy abstracted with `Events`.  These would be treated as the input. An input would be specified to throw an `Event` and so then when the event is passed to the corresponding layer it can be handeled as if that `Event` was itself the input.
