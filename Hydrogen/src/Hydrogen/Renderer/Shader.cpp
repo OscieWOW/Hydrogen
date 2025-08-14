@@ -9,6 +9,10 @@ namespace RenderAPI {
 				return Hydrogen::createScope<OpenGLAPI::OpenGLShader>();
 				break;
 			}
+			default: {
+				return nullptr;
+				break;
+			}
 		}
 	}
 }

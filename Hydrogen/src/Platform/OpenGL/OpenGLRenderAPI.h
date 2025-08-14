@@ -25,8 +25,7 @@ namespace OpenGLAPI {
 
 		private:
 			std::vector<float> verticies;
-			unsigned int m_VAO;
-			unsigned int m_VBO;
+			unsigned int m_VAO, m_VBO, m_EBO;
 			unsigned int m_pointCount = 3;
 			std::vector<std::tuple<GLuint, int>> m_VAOQueue;
 	};

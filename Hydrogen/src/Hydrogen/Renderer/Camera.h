@@ -1,13 +1,14 @@
 #pragma once
 
 #include "../Core/Core.h"
+#include <glm/glm.hpp>
 
 namespace RenderAPI {
 	class  Camera {
 		public:
-		Camera(int x = 0, int y = 0):x(x), y(y) {}
+		Camera(glm::vec3 pos):pos(pos) {}
 
 		public:
-		int x, y;
+			glm::vec3 pos;
 	};
 }

@@ -4,6 +4,7 @@
 #include "Shader.h"
 #include "Window.h"
 #include "Mesh.h"
+#include <glm/gtc/matrix_transform.hpp>
 
 namespace RenderAPI {
 	enum class  Renderers {
@@ -37,6 +38,6 @@ namespace RenderAPI {
 			virtual void setCurrentContext(Hydrogen::Ref<Context> context) = 0;
 
 		protected:
-			Camera m_camera;
+			Camera m_camera = Camera(glm::vec3(0.0f));
 	};
 }

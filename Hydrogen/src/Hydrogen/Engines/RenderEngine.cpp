@@ -13,14 +13,16 @@ namespace RenderAPI {
 		m_renderer->setCurrentContext(context);
 		m_renderer->Clear();
 		m_shader->useProgram();
+		auto time = (float)std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now().time_since_epoch()).count()/1000;
+		glm::mat4 transform = glm::rotate(glm::mat4(1.0f), time , glm::vec3(-0.457f, 0.336f, 0.823f));
+		m_shader->passUniform("trans", transform);
 		for(auto meshIndex:m_renderQueueIndex) {
 			m_renderer->drawGeometry(meshIndex);
 		}
 	}
 	void RenderAPI::RenderEngine::addDrawMesh(Hydrogen::Scope<RenderAPI::Mesh> mesh) {
 		m_renderQueueIndex.push_back(m_renderer->bindGeometry(*mesh));
-		m_shader->passUniform("sortaPi",3.142f);
-
+		m_shader->useProgram();
 	}
 	void RenderEngine::init(Hydrogen::Scope<Shader> shader) {
 		shader->compileProgram();

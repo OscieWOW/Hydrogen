@@ -9,6 +9,10 @@ namespace RenderAPI {
 				return Hydrogen::createRef<OpenGLAPI::OpenGLWindow>(data);
 				break;
 			}
+			default: {
+				return nullptr;
+				break;
+			}
 		}
 	}
 	

@@ -7,6 +7,10 @@ namespace RenderAPI {
 			case(Renderers::OpenGL): {
 				return Hydrogen::createRef<OpenGLAPI::OpenGLRenderer>();
 			}
+			default: {
+				return nullptr;
+				break;
+			}
 		}
 	}
 	Renderer::Renderer() {}

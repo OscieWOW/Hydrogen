@@ -18,7 +18,11 @@ namespace RenderAPI {
 			virtual void compileProgram() = 0;
 			virtual void addShaderSource(ShaderType type, std::string source) = 0;
 			virtual void addShaderCode(ShaderType type, std::string source) = 0;
-			virtual void passUniform(std::string name, std::variant<int, float, glm::mat3, glm::vec3, glm::mat4> value) = 0;
+			virtual void passUniform(std::string name, const int value) = 0;
+			virtual void passUniform(std::string name, const float value) = 0;
+			virtual void passUniform(std::string name, const glm::mat3 value) = 0;
+			virtual void passUniform(std::string name, const glm::vec3 value) = 0;
+			virtual void passUniform(std::string name, const glm::mat4 value) = 0;
 			virtual void useProgram() = 0;
 			virtual void deleteShader() = 0;
 	};

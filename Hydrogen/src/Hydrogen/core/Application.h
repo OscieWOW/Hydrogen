@@ -44,6 +44,10 @@ namespace Hydrogen {
 			appSpecs specs;
 			bool running = true;
 
+			std::chrono::time_point<std::chrono::steady_clock> appStart;
+			//std::chrono::duration<std::chrono::seconds> appAge;
+
+
 		protected:
 			LayerStack m_layerStack;
 			Ref<RenderAPI::Window> m_window;

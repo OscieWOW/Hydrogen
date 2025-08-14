@@ -13,6 +13,7 @@ namespace OpenGLAPI {
 	OpenGLRenderer::~OpenGLRenderer() {
 		glDeleteVertexArrays(1, &m_VAO);
 		glDeleteBuffers(1, &m_VBO);
+		glDeleteBuffers(1, &m_EBO);
 	}
 
 	void OpenGLRenderer::setClearColour(RenderAPI::Colour colour) {
@@ -23,23 +24,26 @@ namespace OpenGLAPI {
 		glClear(GL_COLOR_BUFFER_BIT);
 	}
 	int OpenGLRenderer::bindGeometry(RenderAPI::Mesh& geometry) {
-		H_CORE_FATAL("Binding geometry");
+		H_CORE_TRACE("Binding geometry");
 
 		glGenVertexArrays(1, &m_VAO);
 		glGenBuffers(1, &m_VBO);
+		glGenBuffers(1, &m_EBO);
 
 		glBindVertexArray(m_VAO);
 
-		m_pointCount = 0;
+		m_pointCount = (unsigned int)geometry.indicies.size();
 		for(auto& vertex:geometry.verticies) {
 			verticies.push_back((float)vertex.pos.x);
 			verticies.push_back((float)vertex.pos.y);
 			verticies.push_back((float)vertex.pos.z);
-			m_pointCount++;
 		}
 
 		glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
 		glBufferData(GL_ARRAY_BUFFER, verticies.size()*sizeof(float), verticies.data(), GL_STATIC_DRAW);
+		
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, geometry.indicies.size()*sizeof(unsigned int), geometry.indicies.data(), GL_STATIC_DRAW);
 
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(float), (void*)0);
 		glEnableVertexAttribArray(0);
@@ -54,7 +58,7 @@ namespace OpenGLAPI {
 
 		glBindVertexArray(std::get<0>(m_VAOQueue[index]));
 		checkError("glBindVertexArray");
-		glDrawArrays(GL_TRIANGLES, 0, std::get<1>(m_VAOQueue[index]));
+		glDrawElements(GL_TRIANGLES, std::get<1>(m_VAOQueue[index]), GL_UNSIGNED_INT, 0);
 		checkError("glDrawArrays");
 	}
 	void OpenGLRenderer::setCurrentContext(Hydrogen::Ref<RenderAPI::Context> context) {
