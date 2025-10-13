@@ -14,7 +14,7 @@ namespace RenderAPI {
 		m_renderer->Clear();
 		m_shader->useProgram();
 		auto time = (float)std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now().time_since_epoch()).count()/1000;
-		glm::mat4 transform = glm::rotate(glm::mat4(1.0f), time , glm::vec3(-0.457f, 0.336f, 0.823f));
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f),glm::vec3(glm::sin(time),0.0f,0.0f));
 		m_shader->passUniform("trans", transform);
 		for(auto meshIndex:m_renderQueueIndex) {
 			m_renderer->drawGeometry(meshIndex);

@@ -1,9 +1,9 @@
 #include "Log.h"
 
-	Hydrogen::Ref<Logger::ConsoleSink> Hydrogen::Log::consoleSink = Hydrogen::createRef<Logger::ConsoleSink>();
+Hydrogen::Ref<Logger::ConsoleSink> Hydrogen::Log::consoleSink = Hydrogen::createRef<Logger::ConsoleSink>();
 
-	Logger::OutputStream Hydrogen::Log::clientLogger = Logger::OutputStream("CLIENT", consoleSink);
-	Logger::OutputStream Hydrogen::Log::hydrogenLogger = Logger::OutputStream("HYDROGEN", consoleSink);
+Logger::OutputStream Hydrogen::Log::clientLogger = Logger::OutputStream("CLIENT", consoleSink);
+Logger::OutputStream Hydrogen::Log::hydrogenLogger = Logger::OutputStream("HYDROGEN", consoleSink);
 
 namespace Hydrogen {
 	void Log::logInit() {

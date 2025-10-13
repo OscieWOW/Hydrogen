@@ -12,6 +12,7 @@
 #include "../Engines/RenderEngine.h"
 #include "../Renderer/Shader.h"
 #include "KeyCodes.h"
+#include "../Entity/EntityStack.h"
 
 namespace Hydrogen {
 	struct appSpecs {
@@ -35,6 +36,7 @@ namespace Hydrogen {
 			bool onAppRender(AppRender& e);
 
 			bool onWindowClose(WindowClose& e);
+			bool onWindowResize(WindowResize& e);
 
 
 			void run();
@@ -45,8 +47,7 @@ namespace Hydrogen {
 			bool running = true;
 
 			std::chrono::time_point<std::chrono::steady_clock> appStart;
-			//std::chrono::duration<std::chrono::seconds> appAge;
-
+			//std::chrono::duration<std::chrono::high_resolution_clock> frameTime;
 
 		protected:
 			LayerStack m_layerStack;

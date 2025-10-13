@@ -41,7 +41,8 @@ namespace Hydrogen {
 	bool Application::createWindow() {
 		RenderAPI::WindowData windowData = RenderAPI::WindowData(specs.appName, 800, 600);
 		m_window = m_renderEngine->createWindow(std::move(windowData), BIND_EVENT_FUNCTION(onEvent));
-		m_contexts.push_back(createRef<RenderAPI::Context>(0, 0, m_window->m_data.width, m_window->m_data.height, m_window, RenderAPI::Camera(glm::vec3(1.0f))));
+		int cameraIndex = Entity::EntityStack::addEntity(createRef<Entity::Entity>("Camera"));
+		m_contexts.push_back(createRef<RenderAPI::Context>(0, 0, m_window->m_data.width, m_window->m_data.height, m_window,cameraIndex));
 		return true;
 	}
 
@@ -61,9 +62,9 @@ namespace Hydrogen {
 			"texture")));
 
 		auto frameStart = std::chrono::high_resolution_clock::now();
+		auto frameTime = std::chrono::high_resolution_clock::now()-frameStart;
 		while(running && m_window->windowOpen) {
-			//appAge = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::steady_clock::now()-appStart);
-			auto frameTime = std::chrono::high_resolution_clock::now() - frameStart;
+			frameTime = std::chrono::high_resolution_clock::now() - frameStart;
 			frameStart = std::chrono::high_resolution_clock::now();
 
 			m_window->onUpdate();
@@ -87,6 +88,7 @@ namespace Hydrogen {
 
 		//Window Events
 		dispatcher->dispatch<WindowClose>(BIND_EVENT_FUNCTION(onWindowClose));
+		dispatcher->dispatch<WindowResize>(BIND_EVENT_FUNCTION(onWindowResize));
 
 		m_layerStack.onEvent(e);
 	}
@@ -101,6 +103,12 @@ namespace Hydrogen {
 
 	bool Application::onWindowClose(WindowClose& e) {
 		running = false;
+		return true;
+	}
+
+	bool Application::onWindowResize(WindowResize& e) {
+		m_contexts[0]->width = e.getWidth();
+		m_contexts[0]->height = e.getHeight();
 		return true;
 	}
 }

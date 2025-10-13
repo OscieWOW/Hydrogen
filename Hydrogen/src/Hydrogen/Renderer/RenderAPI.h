@@ -38,6 +38,6 @@ namespace RenderAPI {
 			virtual void setCurrentContext(Hydrogen::Ref<Context> context) = 0;
 
 		protected:
-			Camera m_camera = Camera(glm::vec3(0.0f));
+			glm::mat4 m_cameraMat = glm::mat4(1.0f);
 	};
 }

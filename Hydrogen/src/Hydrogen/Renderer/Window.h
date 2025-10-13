@@ -3,7 +3,6 @@
 #include "../Core/Core.h"
 #include "../Events/Event.h"
 #include "../../Hydrogen/Events/AppEvent.h"
-#include "Camera.h"
 
 namespace RenderAPI {
 
@@ -36,7 +35,7 @@ namespace RenderAPI {
 		int width, height;
 		int x, y;
 		Hydrogen::Ref<Window> window;
-		Camera camera;
-		Context(int x, int y, int width, int height, Hydrogen::Ref<Window> window, Camera camera):width(width), height(height), x(x), y(y), window(window), camera(camera) {}
+		int cameraIndex;
+		Context(int x, int y, int width, int height, Hydrogen::Ref<Window> window, int cameraIndex):width(width), height(height), x(x), y(y), window(window), cameraIndex(cameraIndex) {}
 	};
 }

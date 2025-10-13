@@ -1,4 +1,5 @@
 #include "OpenGLRenderAPI.h"
+#include "../../Hydrogen/Entity/EntityStack.h"
 
 namespace OpenGLAPI {
 	OpenGLRenderer::OpenGLRenderer() {
@@ -65,7 +66,16 @@ namespace OpenGLAPI {
 		glfwMakeContextCurrent(((OpenGLWindow*)context->window.get())->getWindow());
 		glViewport(context->x, context->y, context->width, context->height);
 		checkError("glViewport");
-		m_camera = context->camera;
+
+		Hydrogen::Ref<Entity::Entity> cameraEntity = Entity::EntityStack::m_entityStack[context->cameraIndex];
+		glm::vec3 directionPoint = glm::vec3(
+			cameraEntity->pos.x+glm::cos(glm::radians(cameraEntity->rot.x)),
+			cameraEntity->pos.y+glm::cos(glm::radians(cameraEntity->rot.z)),
+			cameraEntity->pos.z+glm::sin(glm::radians(cameraEntity->rot.x))
+		);
+		
+		glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f );
+		m_cameraMat = glm::lookAt(cameraEntity->pos,directionPoint,up);
 	}
 	void OpenGLRenderer::checkError(std::string location) {
 		
