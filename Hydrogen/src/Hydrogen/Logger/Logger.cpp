@@ -67,20 +67,20 @@ namespace Logger {
 				{
 					auto now = std::chrono::system_clock::now();
 					std::time_t nowC = std::chrono::system_clock::to_time_t(now);
-					std::tm localTime;
-					localtime_s(&localTime, &nowC);
+					struct tm buf;
+					localtime_r(&nowC, &buf);
 
-					outputText << std::put_time(&localTime, "%H:%M:%S");
+					outputText << buf.tm_hour << ":" << buf.tm_min << ":" << buf.tm_sec;
 					break;
 				}
 				case Logger::formatTokenType::DATE:
 				{
 					auto now = std::chrono::system_clock::now();
 					std::time_t nowC = std::chrono::system_clock::to_time_t(now);
-					std::tm localTime;
-					localtime_s(&localTime, &nowC);
-
-					outputText << std::put_time(&localTime, "%d-%m-%Y");
+					struct tm buf;
+					localtime_r(&nowC, &buf);
+					
+					outputText << buf.tm_mday << "-" << (buf.tm_mon + 1) << "-" << (buf.tm_year+1900);
 					break;
 				}
 				case Logger::formatTokenType::MESSAGE:

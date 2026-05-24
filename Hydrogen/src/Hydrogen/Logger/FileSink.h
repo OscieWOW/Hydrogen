@@ -8,11 +8,10 @@ namespace Logger {
 	class  FileSink:public OutputSink {
 		public:
 			FILE* outputFile;
-			errno_t error;
 		public:	
 			FileSink(std::string filePath) {
-				error = fopen_s(&outputFile,filePath.c_str(),"w");
-				if(error != 0 || outputFile == nullptr) {
+				outputFile = fopen(filePath.c_str(),"w");
+				if( outputFile == nullptr) {
 					std::cout << "ERROR OPENING FILE" << filePath << std::endl;
 				}
 			}
@@ -23,22 +22,26 @@ namespace Logger {
 				switch(severity) {
 					case Logger::Severity::TRACE:
 					{
-						fprintf(outputFile,("<TRACE>"+message+"\n").c_str());
+						std::string text = "<TRACE>"+message+"\n";
+						fputs(text.c_str(), outputFile);
 						break;
 					}
 					case Logger::Severity::MESSAGE:
 					{
-						fprintf(outputFile,("<MESSAGE>"+message+"\n").c_str());
+						std::string text = "<MESSAGE>"+message+"\n";
+						fputs(text.c_str(), outputFile);
 						break;
 					}
 					case Logger::Severity::WARNING:
 					{
-						fprintf(outputFile,("<WARNING>"+message).c_str());
+						std::string text = "<WARNING>"+message+"\n";
+						fputs(text.c_str(), outputFile);
 						break;
 					}
 					case Logger::Severity::FATAL:
 					{
-						fprintf(outputFile,("<FATAL>"+message).c_str());
+						std::string text = "<FATAL>"+message+"\n";
+						fputs(text.c_str(), outputFile);
 						break;
 					}
 				}

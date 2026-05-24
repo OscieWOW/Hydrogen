@@ -7,7 +7,7 @@
 #include "../../Hydrogen/Events/KeyEvent.h"
 #include "OpenGLRenderAPI.h"
 
-#include <GLAD/glad.h>
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 namespace OpenGLAPI {
@@ -16,6 +16,8 @@ namespace OpenGLAPI {
 			OpenGLWindow(RenderAPI::WindowData data);
 			~OpenGLWindow() override;
 			GLFWwindow* getWindow();
+			
+			static void windowCloseCallback(GLFWwindow* window);
 
 			void onUpdate() override;
 			void onDrawUpdate() override;

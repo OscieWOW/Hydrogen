@@ -3,12 +3,12 @@ project "GLAD"
     language "C"
     staticruntime "off"
     
-    targetdir ("bin/" .. outputDir .. "/%{prj.name}")
-    objdir ("bin-int/" .. outputDir .. "/%{prj.name}")
+    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+    objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
     files
     {
-        "include/GLAD/glad.h",
+        "include/glad/glad.h",
         "include/KHR/khrplatform.h",
         "src/GLAD/glad.c"
     }

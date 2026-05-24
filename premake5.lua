@@ -7,7 +7,7 @@ workspace "Hydrogen"
         "Dist"
     }
 
-outputDir = "%{cfg.system}/%{cfg.architecture}/%{cfg.buildcfg}"
+outputdir = "%{cfg.system}/%{cfg.architecture}/%{cfg.buildcfg}"
 
 IncludeDir = {}
 IncludeDir["GLFW"] = "%{wks.location}/Hydrogen/vendor/GLFW/include"
@@ -21,8 +21,8 @@ project "Hydrogen"
     location "Hydrogen"
     kind "StaticLib"
     language "C++"
-    targetdir ("bin/" .. outputDir .. "/%{prj.name}")
-    objdir ("bin-int/" .. outputDir .. "/%{prj.name}")
+    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+    objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
     files {
         "%{prj.name}/src/**.h",
@@ -30,19 +30,19 @@ project "Hydrogen"
     }
 
     includedirs {
-      "%{wks.location}/Hydrogen/vendor/GLFW/include",
       "%{IncludeDir.GLAD}",
+      "%{wks.location}/Hydrogen/vendor/GLFW/include",
       "%{IncludeDir.GLM}"
     }
-
-    links {
-        "GLFW",
-        "GLAD",
-        "opengl32.lib"
-    }
+    cppdialect "C++20"
 
     filter "system:windows"
-        cppdialect "C++20"
+    	links {
+            "GLFW",
+            "GLAD",
+            "opengl32.lib"
+    	}
+
         staticruntime "on"
         systemversion "latest"
         buildoptions "/MTd"
@@ -53,9 +53,18 @@ project "Hydrogen"
         }
 
         postbuildcommands {
-            ("{COPY} %{cfg.buildtarget.relpath} ../bin/" ..outputDir.."/ExampleApplication")
+            ("{COPY} %{cfg.buildtarget.relpath} ../bin/" ..outputdir.."/ExampleApplication")
         }
-    
+
+    filter "system:linux"
+    	links {
+		"GLAD",
+		"glfw",
+		"GL",
+		"dl",
+		"pthread"
+	}
+
     filter "configurations:Debug"
         defines "H_RELEASE"
         symbols "on"
@@ -72,8 +81,8 @@ project "ExampleApplication"
     location "ExampleApplication"
     kind "ConsoleApp"
     language "C++"
-    targetdir ("bin/" .. outputDir .. "/%{prj.name}")
-    objdir ("bin-int/" .. outputDir .. "/%{prj.name}")
+    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+    objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
     files {
         "%{prj.name}/src/**.h",
@@ -91,8 +100,8 @@ project "ExampleApplication"
         "Hydrogen"
     }
 
+    cppdialect "C++20"
     filter "system:windows"
-        cppdialect "C++20"
         staticruntime "on"
         systemversion "latest"
         buildoptions "/MTd"
@@ -100,6 +109,17 @@ project "ExampleApplication"
         defines {
             "PLATFORM_WINDOWS"
         }
+	
+    filter "system:linux"
+    	linkgroups "On"
+    	links {
+	    "Hydrogen",
+	    "GLAD",
+	    "glfw",
+	    "GL",
+	    "dl",
+	    "pthread"
+	}
 
     filter "configurations:Debug"
         defines "H_RELEASE"

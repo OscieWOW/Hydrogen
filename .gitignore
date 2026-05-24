@@ -4,8 +4,11 @@ bin/
 bin-int/
 
 #files
+.git*
+*.make
 *.sln
 *.vcxproj.user
 *.vcxproj.filters
 *.vcxproj
 setupMine.bat
+Makefile

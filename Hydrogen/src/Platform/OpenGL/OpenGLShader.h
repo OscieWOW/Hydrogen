@@ -5,7 +5,7 @@
 #include "../../Hydrogen/Core/Log.h"
 #include <glm/gtc/type_ptr.hpp>
 
-#include <GLAD/glad.h>
+#include <glad/glad.h>
 
 namespace OpenGLAPI {
 	class  OpenGLShader: public RenderAPI::Shader {

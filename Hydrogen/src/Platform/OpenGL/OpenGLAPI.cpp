@@ -1,4 +1,5 @@
 #include "OpenGLAPI.h"
+#include <GLFW/glfw3.h>
 
 namespace OpenGLAPI {
 	OpenGLWindow::OpenGLWindow(RenderAPI::WindowData data):Window(data) {
@@ -19,12 +20,7 @@ namespace OpenGLAPI {
 			exit(-1);
 		}
 
-		glfwSetWindowCloseCallback(m_window, [](GLFWwindow* window) {
-			RenderAPI::WindowData* data = (RenderAPI::WindowData*)glfwGetWindowUserPointer(window);
-
-			Hydrogen::WindowClose e = Hydrogen::WindowClose();
-			data->onEvent(e);
-		});
+		glfwSetWindowCloseCallback(m_window, OpenGLWindow::windowCloseCallback);
 
 		glfwSetWindowSizeCallback(m_window, [](GLFWwindow* window, int width, int height) {
 			RenderAPI::WindowData* data = (RenderAPI::WindowData*)glfwGetWindowUserPointer(window);
@@ -112,6 +108,14 @@ namespace OpenGLAPI {
 			data->onEvent(e);
 		});
 	}
+	
+	void OpenGLWindow::windowCloseCallback(GLFWwindow* window) {
+		RenderAPI::WindowData* data = (RenderAPI::WindowData*)glfwGetWindowUserPointer(window);
+		
+		Hydrogen::WindowClose e = Hydrogen::WindowClose();
+		data->onEvent(e);
+	}
+
 	OpenGLWindow::~OpenGLWindow() {
 		glfwDestroyWindow(m_window);
 		glfwTerminate();
