@@ -13,6 +13,7 @@
 #include "../Renderer/Shader.h"
 #include "KeyCodes.h"
 #include "../Entity/EntityStack.h"
+#include "Log.h"
 
 namespace Hydrogen {
 	struct appSpecs {

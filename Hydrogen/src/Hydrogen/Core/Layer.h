@@ -22,6 +22,6 @@ namespace Hydrogen {
 
 		protected:
 			LayerData m_layerData;
-			Logger::OutputStream m_layerLog;
+			CoreTrace::Logger m_layerLog;
 	};
 }

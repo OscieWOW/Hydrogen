@@ -4,3 +4,6 @@
 [submodule "Hydrogen/vendor/GLM"]
 	path = Hydrogen/vendor/GLM
 	url = https://github.com/g-truc/glm
+[submodule "Hydrogen/vendor/CoreTrace"]
+	path = Hydrogen/vendor/CoreTrace
+	url = https://github.com/OscieWOW/CoreTrace.git

@@ -4,6 +4,14 @@ namespace Hydrogen {
 	Application::Application(const appSpecs specs):appStart(std::chrono::steady_clock::now()), specs(specs) {
 		RenderAPI::renderAPI = specs.renderEngineType;
 		m_renderEngine = createRef<RenderAPI::RenderEngine>();
+		
+		//testing CoreTrace
+		Ref<CoreTrace::Logger> coreTraceLogger = createRef<CoreTrace::Logger>("CORE");
+		auto sink = createRef<CoreTrace::Sinks::UConsoleSink>("CORE");
+
+		coreTraceLogger->init(sink);
+
+		coreTraceLogger->trace("testing CoreTrace");
 	}
 	Application::~Application() {
 	}

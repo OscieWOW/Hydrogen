@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Core.h"
-#include "../Logger/Logger.h"
 #include "Log.h"
 
 extern Hydrogen::Application* Hydrogen::createApp();

@@ -7,22 +7,26 @@ workspace "Hydrogen"
         "Dist"
     }
 
-outputdir = "%{cfg.system}/%{cfg.architecture}/%{cfg.buildcfg}"
+outputDir = "%{cfg.system}/%{cfg.architecture}/%{cfg.buildcfg}"
 
 IncludeDir = {}
 IncludeDir["GLFW"] = "%{wks.location}/Hydrogen/vendor/GLFW/include"
 IncludeDir["GLAD"] = "%{wks.location}/Hydrogen/vendor/GLAD/include"
 IncludeDir["GLM"] = "%{wks.location}/Hydrogen/vendor/GLM"
+IncludeDir["CoreTrace"] = "%{wks.location}/Hydrogen/vendor/CoreTrace"
 
 include "Hydrogen/vendor/GLFW"
 include "Hydrogen/vendor/GLAD"
+include "Hydrogen/vendor/GLM"
+include "Hydrogen/vendor/CoreTrace/premake-core.lua"
 
 project "Hydrogen"
+
     location "Hydrogen"
     kind "StaticLib"
     language "C++"
-    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-    objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+    targetdir ("bin/" .. outputDir .. "/%{prj.name}")
+    objdir ("bin-int/" .. outputDir .. "/%{prj.name}")
 
     files {
         "%{prj.name}/src/**.h",
@@ -32,7 +36,8 @@ project "Hydrogen"
     includedirs {
       "%{IncludeDir.GLAD}",
       "%{wks.location}/Hydrogen/vendor/GLFW/include",
-      "%{IncludeDir.GLM}"
+      "%{IncludeDir.GLM}",
+      "%{IncludeDir.CoreTrace}"
     }
     cppdialect "C++20"
 
@@ -40,6 +45,7 @@ project "Hydrogen"
     	links {
             "GLFW",
             "GLAD",
+	    "CoreTrace",
             "opengl32.lib"
     	}
 
@@ -53,7 +59,7 @@ project "Hydrogen"
         }
 
         postbuildcommands {
-            ("{COPY} %{cfg.buildtarget.relpath} ../bin/" ..outputdir.."/ExampleApplication")
+            ("{COPY} %{cfg.buildtarget.relpath} ../bin/" ..outputDir.."/ExampleApplication")
         }
 
     filter "system:linux"
@@ -61,12 +67,13 @@ project "Hydrogen"
 		"GLAD",
 		"glfw",
 		"GL",
+		"CoreTrace",
 		"dl",
 		"pthread"
 	}
 
     filter "configurations:Debug"
-        defines "H_RELEASE"
+        defines "H_DEBUG"
         symbols "on"
     
     filter "configurations:Release"
@@ -76,13 +83,15 @@ project "Hydrogen"
     filter "configurations:Dist"
         defines "H_DIST"
         optimize "on"
+    
+    filter {}
 
 project "ExampleApplication"
     location "ExampleApplication"
     kind "ConsoleApp"
     language "C++"
-    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-    objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+    targetdir ("bin/" .. outputDir .. "/%{prj.name}")
+    objdir ("bin-int/" .. outputDir .. "/%{prj.name}")
 
     files {
         "%{prj.name}/src/**.h",
@@ -93,7 +102,8 @@ project "ExampleApplication"
         "Hydrogen/src",
         "%{wks.location}/Hydrogen/vendor/GLFW/include",
         "%{IncludeDir.GLAD}",
-        "%{IncludeDir.GLM}"
+        "%{IncludeDir.GLM}",
+	"%{IncludeDir.CoreTrace}"
     }
 
     links {
@@ -117,12 +127,13 @@ project "ExampleApplication"
 	    "GLAD",
 	    "glfw",
 	    "GL",
+	    "CoreTrace",
 	    "dl",
 	    "pthread"
 	}
 
     filter "configurations:Debug"
-        defines "H_RELEASE"
+        defines "H_DEBUG"
         symbols "on"
 
     filter "configurations:Release"
@@ -132,3 +143,5 @@ project "ExampleApplication"
     filter "configurations:Dist"
         defines "H_DIST"
         optimize "on"
+
+    filter {}

@@ -1,18 +1,18 @@
 #include "Log.h"
 
-Hydrogen::Ref<Logger::ConsoleSink> Hydrogen::Log::consoleSink = Hydrogen::createRef<Logger::ConsoleSink>();
+Hydrogen::Ref<CoreTrace::Sinks::UConsoleSink> Hydrogen::Log::consoleSink = Hydrogen::createRef<CoreTrace::Sinks::UConsoleSink>("SINK");
 
-Logger::OutputStream Hydrogen::Log::clientLogger = Logger::OutputStream("CLIENT", consoleSink);
-Logger::OutputStream Hydrogen::Log::hydrogenLogger = Logger::OutputStream("HYDROGEN", consoleSink);
+CoreTrace::Logger Hydrogen::Log::clientLogger = CoreTrace::Logger("CLIENT");
+CoreTrace::Logger Hydrogen::Log::hydrogenLogger = CoreTrace::Logger("HYDROGEN");
 
 namespace Hydrogen {
 	void Log::logInit() {
-		clientLogger.setLogFormat("[%N %T] %M");
-		hydrogenLogger.setLogFormat("[%N %T] %M");
+		clientLogger.init(consoleSink);
+		hydrogenLogger.init(consoleSink);
 	}
-	Logger::OutputStream Log::newLogger(const std::string& name) {
-		Logger::OutputStream tempLogger = Logger::OutputStream(name,consoleSink);
-		tempLogger.setLogFormat("[%N %T] %M");
+	CoreTrace::Logger Log::newLogger(const std::string& name) {
+		CoreTrace::Logger tempLogger = CoreTrace::Logger(name);
+		tempLogger.init(consoleSink);
 		return std::move(tempLogger);
 	}
 }

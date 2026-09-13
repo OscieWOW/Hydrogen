@@ -7,13 +7,13 @@ void ExampleLayer::onEvent(Hydrogen::Event& e) {
 	dispatcher.dispatch<Hydrogen::KeyPressed>(BIND_EVENT_FUNCTION(onKeyPress));
 }
 void ExampleLayer::onUpdate(std::chrono::nanoseconds deltaTime) {
-	m_layerLog.logMessage("on update {}",std::to_string(deltaTime.count()));
+	m_layerLog.message("on update {}",std::to_string(deltaTime.count()));
 }
 void ExampleLayer::onAttach() {
-	m_layerLog.logMessage("on attach");
+	m_layerLog.message("on attach");
 }
 void ExampleLayer::onDetach() {
-	m_layerLog.logMessage("on detach");
+	m_layerLog.message("on detach");
 }
 
 bool ExampleLayer::onKeyPress(Hydrogen::KeyPressed& e) {
