@@ -8,6 +8,7 @@ workspace "Hydrogen"
     }
 
 outputDir = "%{cfg.system}/%{cfg.architecture}/%{cfg.buildcfg}"
+outputdir = outputDir
 
 IncludeDir = {}
 IncludeDir["GLFW"] = "%{wks.location}/Hydrogen/vendor/GLFW/include"
@@ -17,7 +18,7 @@ IncludeDir["CoreTrace"] = "%{wks.location}/Hydrogen/vendor/CoreTrace"
 
 include "Hydrogen/vendor/GLFW"
 include "Hydrogen/vendor/GLAD"
-include "Hydrogen/vendor/GLM"
+include "Hydrogen/vendor/GLMpremake5.lua"
 include "Hydrogen/vendor/CoreTrace/premake-core.lua"
 
 project "Hydrogen"
