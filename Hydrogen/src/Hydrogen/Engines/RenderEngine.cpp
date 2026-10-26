@@ -1,6 +1,6 @@
 #include "RenderEngine.h"
 
-namespace RenderAPI {
+namespace Hydrogen::RenderAPI {
 	RenderEngine::RenderEngine() {
 		m_renderer = Renderer::createRenderer();
 	}
@@ -9,8 +9,8 @@ namespace RenderAPI {
 	}
 
 	void RenderEngine::onUpdate(std::chrono::nanoseconds deltaT) {}
-	void RenderEngine::onRender(Hydrogen::Ref<Context> context) {
-		m_renderer->setCurrentContext(context);
+	void RenderEngine::onRender(Hydrogen::Ref<Context> context, const ResourceManager::ResourceManager& resManager) {
+		m_renderer->setCurrentContext(context, resManager);
 		m_renderer->Clear();
 		m_shader->useProgram();
 		auto time = (float)std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now().time_since_epoch()).count()/1000;
@@ -20,7 +20,7 @@ namespace RenderAPI {
 			m_renderer->drawGeometry(meshIndex);
 		}
 	}
-	void RenderAPI::RenderEngine::addDrawMesh(Hydrogen::Scope<RenderAPI::Mesh> mesh) {
+	void RenderAPI::RenderEngine::addDrawMesh(Hydrogen::Ref<RenderAPI::Mesh> mesh) {
 		m_renderQueueIndex.push_back(m_renderer->bindGeometry(*mesh));
 		m_shader->useProgram();
 	}

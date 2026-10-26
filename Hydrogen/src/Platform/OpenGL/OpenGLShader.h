@@ -7,7 +7,7 @@
 
 #include <glad/glad.h>
 
-namespace OpenGLAPI {
+namespace Hydrogen::OpenGLAPI {
 	class  OpenGLShader: public RenderAPI::Shader {
 		public:
 			OpenGLShader();

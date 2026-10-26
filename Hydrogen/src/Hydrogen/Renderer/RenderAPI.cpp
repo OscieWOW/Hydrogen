@@ -1,7 +1,7 @@
 #include "RenderAPI.h"
 #include "../../Platform/OpenGL/OpenGLRenderAPI.h"
 
-namespace RenderAPI {
+namespace Hydrogen::RenderAPI {
 	Hydrogen::Ref<Renderer> Renderer::createRenderer() {
 		switch(renderAPI) {
 			case(Renderers::OpenGL): {

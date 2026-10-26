@@ -3,7 +3,7 @@
 #include "../Core/Core.h"
 #include <glm/matrix.hpp>
 
-namespace RenderAPI {
+namespace Hydrogen::RenderAPI {
 	struct  Vertex {
 		glm::vec3 pos;
 		glm::vec3 normal;

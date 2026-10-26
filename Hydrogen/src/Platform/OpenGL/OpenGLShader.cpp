@@ -1,6 +1,6 @@
 #include "OpenGLShader.h"
 
-namespace OpenGLAPI {
+namespace Hydrogen::OpenGLAPI {
 
 	OpenGLShader::OpenGLShader() {
 		
@@ -21,7 +21,7 @@ namespace OpenGLAPI {
 		checkError("glCreateProgram");
 		
 		for(auto source : m_shaderCode) {
-			GLenum shaderType = NULL;
+			GLenum shaderType = GL_NONE;
 			switch(source.first) {
 				case(RenderAPI::ShaderType::FRAGMENT): shaderType = GL_FRAGMENT_SHADER; break;
 				case(RenderAPI::ShaderType::VERTEX): shaderType = GL_VERTEX_SHADER; break;

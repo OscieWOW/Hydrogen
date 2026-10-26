@@ -1,7 +1,7 @@
 #include "Window.h"
 #include "../../Platform/OpenGL/OpenGLAPI.h"
 
-namespace RenderAPI {	
+namespace Hydrogen::RenderAPI {	
 
 	Hydrogen::Ref<Window> Window::createWindow(WindowData data) {
 		switch(renderAPI) {

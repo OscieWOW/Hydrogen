@@ -10,7 +10,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-namespace OpenGLAPI {
+namespace Hydrogen::OpenGLAPI {
 	class  OpenGLWindow:public RenderAPI::Window {
 		public:
 			OpenGLWindow(RenderAPI::WindowData data);

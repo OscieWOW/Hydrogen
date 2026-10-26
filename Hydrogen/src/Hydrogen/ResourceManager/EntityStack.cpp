@@ -1,3 +1,4 @@
+/*
 #include "EntityStack.h"
 
 namespace Entity {
@@ -5,7 +6,7 @@ namespace Entity {
 
 	int EntityStack::addEntity(Hydrogen::Ref<Entity> entity) {
 		m_entityStack.push_back(entity);
-		return (int
-				)m_entityStack.size()-1;
+		return (int)m_entityStack.size()-1;
 	} 
 }
+*/

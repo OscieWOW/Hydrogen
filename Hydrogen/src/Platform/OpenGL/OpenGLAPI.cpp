@@ -1,7 +1,7 @@
 #include "OpenGLAPI.h"
 #include <GLFW/glfw3.h>
 
-namespace OpenGLAPI {
+namespace Hydrogen::OpenGLAPI {
 	OpenGLWindow::OpenGLWindow(RenderAPI::WindowData data):Window(data) {
 		m_window = glfwCreateWindow(data.width, data.height, data.title.c_str(), NULL, NULL);
 		if(m_window == NULL) {

@@ -1,7 +1,7 @@
 #include "OpenGLRenderAPI.h"
-#include "../../Hydrogen/Entity/EntityStack.h"
+#include "../../Hydrogen/ResourceManager/EntityStack.h"
 
-namespace OpenGLAPI {
+namespace Hydrogen::OpenGLAPI {
 	OpenGLRenderer::OpenGLRenderer() {
 		H_CORE_TRACE("Init GLFW");
 		glfwInit();
@@ -55,32 +55,25 @@ namespace OpenGLAPI {
 		return (int)m_VAOQueue.size()-1;
 	}
 	void OpenGLRenderer::drawGeometry(int index) {
-		m_pointCount = 3;
-
 		glBindVertexArray(std::get<0>(m_VAOQueue[index]));
 		checkError("glBindVertexArray");
 		glDrawElements(GL_TRIANGLES, std::get<1>(m_VAOQueue[index]), GL_UNSIGNED_INT, 0);
 		checkError("glDrawArrays");
 	}
-	void OpenGLRenderer::setCurrentContext(Hydrogen::Ref<RenderAPI::Context> context) {
+	void OpenGLRenderer::setCurrentContext(Hydrogen::Ref<RenderAPI::Context> context, const ResourceManager::ResourceManager& resManager) {
 		glfwMakeContextCurrent(((OpenGLWindow*)context->window.get())->getWindow());
 		glViewport(context->x, context->y, context->width, context->height);
 		checkError("glViewport");
 
-		Hydrogen::Ref<Entity::Entity> cameraEntity = Entity::EntityStack::m_entityStack[context->cameraIndex];
-		glm::vec3 directionPoint = glm::vec3(
-			cameraEntity->pos.x+glm::cos(glm::radians(cameraEntity->rot.x)),
-			cameraEntity->pos.y+glm::cos(glm::radians(cameraEntity->rot.z)),
-			cameraEntity->pos.z+glm::sin(glm::radians(cameraEntity->rot.x))
-		);
-		
+		Hydrogen::Ref<ResourceManager::Entity::Entity> cameraEntity = resManager.entityStack->getEntity(context->cameraIndex);
+				
 		glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f );
-		m_cameraMat = glm::lookAt(cameraEntity->pos,directionPoint,up);
+		m_cameraMat = glm::lookAt(cameraEntity->pos, cameraEntity->lookAt,up);
 	}
 	void OpenGLRenderer::checkError(std::string location) {
 		
-		GLenum err;
-		while((err = glGetError()) != GL_NO_ERROR) {
+		GLenum err = glGetError();
+		while(err != GL_NO_ERROR) {
 			std::string error;
 			switch(err) {
 				case GL_INVALID_ENUM:      error = "GL_INVALID_ENUM"; break;

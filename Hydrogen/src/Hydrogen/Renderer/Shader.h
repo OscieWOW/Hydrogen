@@ -3,7 +3,7 @@
 #include "../Core/Core.h"
 #include <glm/glm.hpp>
 
-namespace RenderAPI {
+namespace Hydrogen::RenderAPI {
 	enum  ShaderType {
 		VERTEX,
 		FRAGMENT

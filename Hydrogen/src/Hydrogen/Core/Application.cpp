@@ -4,14 +4,7 @@ namespace Hydrogen {
 	Application::Application(const appSpecs specs):appStart(std::chrono::steady_clock::now()), specs(specs) {
 		RenderAPI::renderAPI = specs.renderEngineType;
 		m_renderEngine = createRef<RenderAPI::RenderEngine>();
-		
-		//testing CoreTrace
-		Ref<CoreTrace::Logger> coreTraceLogger = createRef<CoreTrace::Logger>("CORE");
-		auto sink = createRef<CoreTrace::Sinks::UConsoleSink>("CORE");
-
-		coreTraceLogger->init(sink);
-
-		coreTraceLogger->trace("testing CoreTrace");
+		m_resourceManager = ResourceManager::ResourceManager();
 	}
 	Application::~Application() {
 	}
@@ -19,7 +12,8 @@ namespace Hydrogen {
 	bool Application::initRenderEngine() {
 		Hydrogen::Scope<RenderAPI::Shader> shader = RenderAPI::Shader::createShader();
 		
-		shader->addShaderCode(RenderAPI::ShaderType::VERTEX, R"(#version 330 core
+		shader->addShaderCode(RenderAPI::ShaderType::VERTEX, R"(
+			#version 330 core
 			layout(location = 0) in vec3 aPos;
 			
 			uniform mat4 trans;
@@ -49,7 +43,7 @@ namespace Hydrogen {
 	bool Application::createWindow() {
 		RenderAPI::WindowData windowData = RenderAPI::WindowData(specs.appName, 800, 600);
 		m_window = m_renderEngine->createWindow(std::move(windowData), BIND_EVENT_FUNCTION(onEvent));
-		int cameraIndex = Entity::EntityStack::addEntity(createRef<Entity::Entity>("Camera"));
+		int cameraIndex = m_resourceManager.entityStack->addEntity(createRef<ResourceManager::Entity::Entity>("Camera"));
 		m_contexts.push_back(createRef<RenderAPI::Context>(0, 0, m_window->m_data.width, m_window->m_data.height, m_window,cameraIndex));
 		return true;
 	}
@@ -57,17 +51,16 @@ namespace Hydrogen {
 
 
 	void Application::run() {
-		m_renderEngine->addDrawMesh(Hydrogen::createScope<RenderAPI::Mesh>(
-			RenderAPI::Mesh([]()->std::vector<RenderAPI::Vertex> {
-				std::vector<RenderAPI::Vertex> vertecies = {
-					RenderAPI::Vertex(glm::vec3(-0.5f,0.5f,0.0f), glm::vec3(0.0f,1.0f,0.0f), glm::vec2(0.0f, 1.0f)),
-					RenderAPI::Vertex(glm::vec3(-0.5f,-0.5f,0.0f), glm::vec3(0.0f,1.0f,0.0f), glm::vec2(0.0f, 0.0f)),
-					RenderAPI::Vertex(glm::vec3(0.5f,-0.5f,0.0f), glm::vec3(0.0f,1.0f,0.0f), glm::vec2(1.0f, 0.0f)),
-					RenderAPI::Vertex(glm::vec3(0.5f,0.5f,0.0f), glm::vec3(0.0f,1.0f,0.0f), glm::vec2(1.0f, 1.0f))};
-				return vertecies;
-			}(),
-			std::vector<unsigned int>{0, 1, 3, 3, 1, 2},
-			"texture")));
+		std::vector<RenderAPI::Vertex> vertices = {
+			RenderAPI::Vertex(glm::vec3(-0.5f,0.5f,0.0f), glm::vec3(0.0f,1.0f,0.0f), glm::vec2(0.0f, 1.0f)),
+			RenderAPI::Vertex(glm::vec3(-0.5f,-0.5f,0.0f), glm::vec3(0.0f,1.0f,0.0f), glm::vec2(0.0f, 0.0f)),
+			RenderAPI::Vertex(glm::vec3(0.5f,-0.5f,0.0f), glm::vec3(0.0f,1.0f,0.0f), glm::vec2(1.0f, 0.0f)),
+			RenderAPI::Vertex(glm::vec3(0.5f,0.5f,0.0f), glm::vec3(0.0f,1.0f,0.0f), glm::vec2(1.0f, 1.0f))
+		};
+		std::vector<unsigned int> indices = {0, 1, 3, 3, 1, 2};
+
+		Ref<RenderAPI::Mesh> mesh = createRef<RenderAPI::Mesh>(vertices, indices, "texture");
+		m_renderEngine->addDrawMesh(mesh);
 
 		auto frameStart = std::chrono::high_resolution_clock::now();
 		auto frameTime = std::chrono::high_resolution_clock::now()-frameStart;
@@ -79,7 +72,7 @@ namespace Hydrogen {
 			
 			m_renderEngine->onUpdate(frameTime);
 			for(auto context:m_contexts) {
-				m_renderEngine->onRender(context);
+				m_renderEngine->onRender(context, m_resourceManager);
 				context->window->onDrawUpdate();
 			}
 		}

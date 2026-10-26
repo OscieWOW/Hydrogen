@@ -12,7 +12,8 @@
 #include "../Engines/RenderEngine.h"
 #include "../Renderer/Shader.h"
 #include "KeyCodes.h"
-#include "../Entity/EntityStack.h"
+#include "../ResourceManager/EntityStack.h"
+#include "../ResourceManager/ResourceManager.h"
 #include "Log.h"
 
 namespace Hydrogen {
@@ -55,6 +56,8 @@ namespace Hydrogen {
 			Ref<RenderAPI::Window> m_window;
 			Ref<RenderAPI::RenderEngine> m_renderEngine;
 			std::vector<Hydrogen::Ref<RenderAPI::Context>> m_contexts;
+			ResourceManager::ResourceManager m_resourceManager;
+
 	};
 	Application* createApp();
 }

@@ -2,7 +2,7 @@
 #include "RenderAPI.h"
 #include "../../Platform/OpenGL/OpenGLShader.h"
 
-namespace RenderAPI {
+namespace Hydrogen::RenderAPI {
 	Hydrogen::Scope<Shader> Shader::createShader() {
 		switch(renderAPI) {
 			case(Renderers::OpenGL): {

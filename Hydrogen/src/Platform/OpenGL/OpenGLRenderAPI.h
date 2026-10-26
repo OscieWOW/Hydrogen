@@ -10,7 +10,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-namespace OpenGLAPI {
+namespace Hydrogen::OpenGLAPI {
 	class  OpenGLRenderer: public RenderAPI::Renderer {
 		public:
 			OpenGLRenderer();
@@ -20,7 +20,7 @@ namespace OpenGLAPI {
 			void Clear() override;
 			int bindGeometry(RenderAPI::Mesh& geometry) override;
 			void drawGeometry(int index) override;
-			void setCurrentContext(Hydrogen::Ref<RenderAPI::Context> context) override;
+			void setCurrentContext(Hydrogen::Ref<RenderAPI::Context> context, const ResourceManager::ResourceManager& resManager) override;
 			void checkError(std::string location);
 
 		private:

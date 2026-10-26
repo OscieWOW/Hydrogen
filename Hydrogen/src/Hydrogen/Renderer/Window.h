@@ -4,7 +4,7 @@
 #include "../Events/Event.h"
 #include "../../Hydrogen/Events/AppEvent.h"
 
-namespace RenderAPI {
+namespace Hydrogen::RenderAPI {
 
 	struct WindowData {
 		std::string title;

@@ -1,11 +1,13 @@
 #pragma once
 
 #include "../Core/Core.h"
+#include "../ResourceManager/ResourceManager.h"
 #include "Shader.h"
 #include "Window.h"
 #include "Mesh.h"
 #include <glm/gtc/matrix_transform.hpp>
 
+namespace Hydrogen {
 namespace RenderAPI {
 	enum class  Renderers {
 		OpenGL
@@ -35,9 +37,10 @@ namespace RenderAPI {
 			virtual void Clear() = 0;
 			virtual int bindGeometry(RenderAPI::Mesh& geometry) = 0;
 			virtual void drawGeometry(int index) = 0;
-			virtual void setCurrentContext(Hydrogen::Ref<Context> context) = 0;
+			virtual void setCurrentContext(Hydrogen::Ref<Context> context, const ResourceManager::ResourceManager& resManager) = 0;
 
 		protected:
 			glm::mat4 m_cameraMat = glm::mat4(1.0f);
 	};
+}
 }

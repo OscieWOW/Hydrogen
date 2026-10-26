@@ -4,7 +4,7 @@
 
 class ExampleLayer:public Hydrogen::Layer {
 	public:
-	ExampleLayer(Hydrogen::Handle<RenderAPI::RenderEngine> renderEngine, const Hydrogen::LayerData layerData);
+	ExampleLayer(Hydrogen::Handle<Hydrogen::RenderAPI::RenderEngine> renderEngine, const Hydrogen::LayerData layerData);
 		void onEvent(Hydrogen::Event& e) override;
 		void onUpdate(std::chrono::nanoseconds deltaTime) override;
 		void onAttach() override;
@@ -15,5 +15,5 @@ class ExampleLayer:public Hydrogen::Layer {
 	private:
 		int colourState1 = 0;
 		int colourState2 = 0;
-		Hydrogen::Handle<RenderAPI::RenderEngine> m_renderEngine;
+		Hydrogen::Handle<Hydrogen::RenderAPI::RenderEngine> m_renderEngine;
 };
